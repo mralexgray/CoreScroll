@@ -49,7 +49,7 @@
 
 + (SFSnapShotLayer*)rootSnapshot;
 
-@property(assign) CATextLayer* labelLayer;
-@property BOOL isSelected;
+@property (assign) CATextLayer* labelLayer;
+@property  BOOL isSelected;
 
 @end

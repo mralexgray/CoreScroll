@@ -49,7 +49,7 @@
   }
   [cropImage unlockFocus];
   
-  [cropImage autorelease];
+//  [cropImage autorelease];
   return cropImage;
 }
 

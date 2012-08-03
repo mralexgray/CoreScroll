@@ -40,8 +40,8 @@
 #define SFWhiteColor  CGColorCreateGenericRGB(1.0f,1.0f,1.0f,1.0f)
 
 
-#define YMARGIN 20.0
-#define XMARGIN 30.0
+#define YMARGIN 0//20.0
+#define XMARGIN 0//30.0
 
 @implementation SFSnapShotLayer
 
@@ -66,10 +66,10 @@ static NSInteger snapshotNumber;
   snapshotNumber++;
   
   CATextLayer* labelLayer = [CATextLayer layer];
-  labelLayer.string = [NSString stringWithFormat:@"%i", snapshotNumber];
+  labelLayer.string = [NSString stringWithFormat:@"%ld", snapshotNumber];
   labelLayer.fontSize = 24;
   labelLayer.foregroundColor = SFWhiteColor;
-  labelLayer.font = @"Lucida Grande";
+  labelLayer.font = (id)@"Lucida Grande";
   [labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
 	[labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY]];
 
@@ -78,12 +78,12 @@ static NSInteger snapshotNumber;
   [contentLayer setLabelLayer:labelLayer];
   
   
-  [contentLayer autorelease];
+//  [contentLayer autorelease];
   return contentLayer;
 }
 
 
-- (void) setIsSelected:(BOOL)isSelected {
+- (void) setIsSeleczted:(BOOL)isSelected {
   _isSelected = isSelected;
   if(_isSelected) {
     self.backgroundColor = SFWhiteColor;

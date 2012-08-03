@@ -97,13 +97,13 @@
   snapShot = [ [self sublayers] objectAtIndex:index];
   [snapShot setIsSelected:YES];
     
-  [self setValue:[NSNumber numberWithInteger: index] forKey:selectedSnapShot];
+  [self setValue:@(index) forKey:selectedSnapShot];
   
   
   [self zoomAnimation:snapShot];    
 
   // This will override the shift key...  This should be moved to view logic
-  [CATransaction setValue:[NSNumber numberWithFloat:0.9] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.9f forKey:@"animationDuration"];
 
   [self scrollToSelected];
   
@@ -202,7 +202,7 @@
   if (scrollPoint.x < 0 ) scrollPoint.x = 0;
   if (scrollPoint.x > contentWidth - visibleWidth ) scrollPoint.x = contentWidth - visibleWidth;
   
-  [CATransaction setValue:[NSNumber numberWithFloat:0.8] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.8f forKey:@"animationDuration"];
   [self scrollToPoint:scrollPoint]; 
 }
 

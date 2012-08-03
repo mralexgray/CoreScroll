@@ -153,12 +153,12 @@
   // Slider tracking should be immediate
   [CATransaction begin];
   {
-    [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+    [CATransaction setValue:@0.0f forKey:@"animationDuration"];
     [self setSliderPosition:newX];    
   }
   [CATransaction commit];
   
-  [CATransaction setValue:[NSNumber numberWithFloat:0.8] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.8f forKey:@"animationDuration"];
   [_scrollerContent scrollToPosition: newX / tray.frame.size.width];
 }
 
@@ -435,8 +435,7 @@
     [path stroke];
   }
   [maskImage unlockFocus];
-  
-  [maskImage autorelease];
+//  [maskImage autorelease];
   return maskImage;
 }
 
@@ -487,10 +486,10 @@
   [glassedImage unlockFocus];
   
   
-  [topGlassGradient release];
-  [botGlassGradient release];
-  [glassedImage autorelease];
-  return glassedImage; 
+//  [topGlassGradient release];
+//  [botGlassGradient release];
+//  [glassedImage autorelease];
+  return glassedImage;
 }
 
 - (void) addMask:(NSImage*)maskImage toLayer:(CALayer*)layer {  
@@ -503,7 +502,7 @@
   maskLayer.frame = layer.frame;
   maskLayer.position = CGPointMake(0, 0);
   maskLayer.anchorPoint = CGPointMake(0,0);  
-  [maskLayer setContents:(id)maskRef];
+  [maskLayer setContents:(id)CFBridgingRelease(maskRef)];
   
   [layer setMask:maskLayer];
   CGImageRelease(maskRef);
@@ -583,7 +582,7 @@
 }
 
 - (BOOL)mouseDownAtPointInSuperlayer:(CGPoint)inputPoint {
-  [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.0f forKey:@"animationDuration"];
   CGPoint point = [self convertPoint:inputPoint fromLayer:self.superlayer];
   _mouseDownPointForCurrentEvent = point;
   _mouseOverSelectedInput = YES;
@@ -651,7 +650,7 @@
     return;
   }
 
-  [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.0f forKey:@"animationDuration"];
   if ( _inputMode == SFLeftArrowInput ) {    
     leftArrowHighlight.hidden = CGRectContainsPoint ( leftArrow.frame, point ) ? NO : YES;
     _mouseOverSelectedInput = ! leftArrowHighlight.hidden;
@@ -666,7 +665,7 @@
 
 
 - (void)mouseUp:(CGPoint)inputPoint {
-  [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.0f forKey:@"animationDuration"];
   
   leftArrowHighlight.hidden = YES;
   rightArrowHighlight.hidden = YES;
@@ -691,14 +690,14 @@
   CGFloat newX = (tray.frame.size.width - slider.frame.size.width ) * percentage;
   [CATransaction begin];
   {
-    [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+    [CATransaction setValue:@0.0f forKey:@"animationDuration"];
     [self setSliderPosition:newX];    
   }
   [CATransaction commit];
 }
 
 - (void)scrollContentResized {
-  [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+  [CATransaction setValue:@0.0f forKey:@"animationDuration"];
   if ( !_scrollerContent || [_scrollerContent visibleWidth] >= [_scrollerContent contentWidth] ) {
     self.hidden = YES;
   } else {
