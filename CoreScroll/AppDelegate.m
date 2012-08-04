@@ -1,8 +1,8 @@
 //
-//  AppDelegate.m
-//  CoreScroll
+//AppDelegate.m
+//CoreScroll
 //
-//  Created by Alex Gray on 8/3/12.
+//Created by Alex Gray on 8/3/12.
 //
 //
 

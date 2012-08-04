@@ -1,4 +1,4 @@
-/*   
+/* 
  Copyright (c) MMIIX, Matthieu Cormier
  All rights reserved.
  
@@ -50,17 +50,17 @@ typedef enum {
 
 @interface CustomView : NSView {
  	SFScrollPaneLayer *bodyLayer;
-  CALayer* rootBox;
-  
-  SFScrollerLayer* scrollerLayer;
-  
-  
-  
+CALayer* rootBox;
+
+SFScrollerLayer* scrollerLayer;
+
+
+
 @private
-  NSGradient* bgGradient;
-  SFTimeLineViewEventType _currentMouseEventType;
-  
-    
+NSGradient* bgGradient;
+SFTimeLineViewEventType _currentMouseEventType;
+
+
 }
 
 @end

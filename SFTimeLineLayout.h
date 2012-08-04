@@ -1,4 +1,4 @@
-/*   
+/* 
  Copyright (c) MMIIX, Matthieu Cormier
  All rights reserved.
  
@@ -39,10 +39,10 @@
 
 
 /* Layer attributes:
-    selectedSnapShot		NSNumber<int>
+selectedSnapShot		NSNumber<int>
  
-  Sublayer attributes:
-    none 
+Sublayer attributes:
+none 
 */
 
 #define YMARGIN 30
