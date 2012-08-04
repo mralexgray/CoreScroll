@@ -39,7 +39,7 @@
 
 #import "SFScrollerProtocols.h"
 
-#define SCROLLER_HEIGHT 16.0 // The default height
+#define SCROLLER_HEIGHT 36.0 // The default height
 
 typedef enum {
 	SFNoInput = (1 << 1),
@@ -63,7 +63,7 @@ typedef enum {
   CALayer* tray;
   CALayer* slider;
   
-  id <SFScrollerContent> _scrollerContent;
+  id <SFScrollerContent> __unsafe_unretained _scrollerContent;
 
   // -------- Event variables --------------
   SFScrollerMouseDownInput _inputMode;
@@ -72,7 +72,7 @@ typedef enum {
   NSTimer* mouseDownTimer;
 }
 
-@property(assign) id <SFScrollerContent> scrollerContent;
+@property(unsafe_unretained) id <SFScrollerContent> scrollerContent;
 
 // returns YES if the scroller should be notified of mouse 
 // dragged and mouse up notifications

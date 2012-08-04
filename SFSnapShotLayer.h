@@ -44,7 +44,7 @@
   
   @private
   BOOL _isSelected;
-  CATextLayer* _labelLayer;  
+  __unsafe_unretained CATextLayer* _labelLayer;  // ..was __weak
 }
 
 + (SFSnapShotLayer*)rootSnapshot;

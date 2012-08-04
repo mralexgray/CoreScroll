@@ -47,6 +47,8 @@
 #define SFRightArrowKey 124
 #define SHIFT_ANIM_SPEED 2.0f
 
+
+
 @interface CustomView (PrivateMethods)
 - (void)setupLayers;
 - (void)setupListeners;
@@ -101,8 +103,8 @@
   
   scrollerLayer = [SFScrollerLayer layer];
   scrollerLayer.name = @"scroller";
-  [scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:10]];
-  [scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:10 + SCROLLER_HEIGHT]];
+  [scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"superlayer" attribute:kCAConstraintMinY  offset:10]];
+  [scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMinY]];// offset:10 + SCROLLER_HEIGHT]];
   
   
 	bodyLayer = [SFScrollPaneLayer layer];
@@ -120,11 +122,28 @@
   
   
   // TODO -- SFScrollLayer -- has reference to site and listens for change methods
-  int i;
-  for ( i = 0; i < 200; i++ ) {
-    [bodyLayer addSublayer:[SFSnapShotLayer rootSnapshot]];
-  }  
-  
+//  int i;
+//  for ( i = 0; i < 200; i++ ) {
+
+	[NSThread performBlockInBackground:^{
+
+		while ( ![AtoZ hasSharedInstance] ) sleep(1);
+
+		[[NSThread mainThread]performBlock:^{
+			[[AtoZ dockSorted] each:^(id obj, NSUInteger index, BOOL *stop) {
+
+				SFSnapShotLayer *ii = [SFSnapShotLayer rootSnapshot];
+				[ii setValue:obj forKeyPath:@"dictionary.file"];
+				if ( ! [obj valueForKeyPath:@"color"] )  {
+					NSLog(@"tired.. of waiting... for %@", [(AZFile *) obj propertiesPlease]);
+					sleep(2);
+				}
+				ii.backgroundColor = [[obj valueForKeyPath:@"color"]CGColor];
+				ii.labelLayer.string = [[obj valueForKeyPath:@"dictionary.file.name"] substringToIndex:1];
+				[bodyLayer addSublayer:ii];
+			}];
+		} waitUntilDone:YES];
+	}];
   
   [scrollerLayer setScrollerContent:bodyLayer];
   [bodyLayer setContentController:scrollerLayer];

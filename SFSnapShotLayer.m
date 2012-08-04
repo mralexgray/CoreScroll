@@ -40,8 +40,8 @@
 #define SFWhiteColor  CGColorCreateGenericRGB(1.0f,1.0f,1.0f,1.0f)
 
 
-#define YMARGIN 0//20.0
-#define XMARGIN 0//30.0
+#define YMARGIN 10.0 //20.0
+#define XMARGIN 10.0 //30.0
 
 @implementation SFSnapShotLayer
 
@@ -69,7 +69,7 @@ static NSInteger snapshotNumber;
   labelLayer.string = [NSString stringWithFormat:@"%ld", snapshotNumber];
   labelLayer.fontSize = 24;
   labelLayer.foregroundColor = SFWhiteColor;
-  labelLayer.font = (id)@"Lucida Grande";
+  labelLayer.font = CFBridgingRetain(@"Lucida Grande");
   [labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
 	[labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY]];
 

@@ -47,7 +47,7 @@
 
   BOOL selectionAnim;
   
-  id <SFScrollerContentController> _contentController;
+  id <SFScrollerContentController> __unsafe_unretained _contentController;
   
   
   CGFloat contentWidth;
@@ -55,7 +55,7 @@
   CGFloat stepSize;
 }
 
-@property(assign) id <SFScrollerContentController> contentController;
+@property(unsafe_unretained) id <SFScrollerContentController> contentController;
 
 - (void)selectSnapShot:(NSInteger)index;
 - (void)moveSelection:(NSInteger)dx;

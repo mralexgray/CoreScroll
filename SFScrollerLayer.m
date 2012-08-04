@@ -85,7 +85,7 @@
 @synthesize scrollerContent=_scrollerContent;
 
 - (id) init {
-  [super init];
+  if (!(self = [super init])) return nil;
   self.autoresizingMask = kCALayerWidthSizable;
   self.cornerRadius = CORNER_RADIUS;
   self.masksToBounds = YES;
@@ -210,14 +210,12 @@
   
   
   NSImage* bgImage = [self createGlassImageForSize:NSMakeSize(initialWidth, sliderHeight)];
-  [bgImage retain];
   // crop the image into 3 pieces
   //[ 0 -> INNER_RADIUS ][ INNER_RADIUS -> initialWidth - INNER_RADIUS * 2 ][ initialWidth - INNER_RADIUS -> initialWidth ]
   NSImage* leftImage = [MiscUtils cropImage:bgImage withRect:NSMakeRect(0, 0, INNER_RADIUS, sliderHeight)];
   NSImage* centreImage = [MiscUtils cropImage:bgImage 
                                      withRect:NSMakeRect(INNER_RADIUS, 0, initialWidth - INNER_RADIUS * 2, sliderHeight)];
   NSImage* rightImage = [MiscUtils cropImage:bgImage withRect:NSMakeRect(initialWidth - INNER_RADIUS, 0, INNER_RADIUS, sliderHeight)];
-  [bgImage release];
  
   [self addContents:centreImage toLayer:middle];
 
@@ -240,7 +238,6 @@
 // Makes the left and right side of the slider rounded based on the points provided
 // Creates a Mask and draws a rounded border on the provided image that is set to the contents
 - (void)setSliderSideLayer:(CALayer*)layer contents:(NSImage*)image andPts:(NSPoint)pt1 pt2:(NSPoint)pt2 pt3:(NSPoint)pt3 {
-  [image retain];
   NSBezierPath* path = [NSBezierPath bezierPath];
   [path moveToPoint:pt1];
   [path curveToPoint:pt2 controlPoint1:NSMakePoint(pt2.x, pt1.y) controlPoint2:pt2];
@@ -266,9 +263,7 @@
   
   [self addContents:image toLayer:layer];
   [self addMask:maskImage toLayer:layer];
-  [maskImage release];
   
-  [image release];
 }
 
 
@@ -287,7 +282,7 @@
 	NSPoint bottomLeft  = NSMakePoint (minX, minY);  
   NSPoint centerPoint = NSMakePoint(maxX - INNER_RADIUS, (maxY - minY) * 0.5);  
     
-  leftArrow = [[CALayer layer] retain];
+  leftArrow = [CALayer layer];
   leftArrow.name = @"leftArrow";
   leftArrow.autoresizingMask = kCALayerHeightSizable;  
   leftArrow.frame = CGRectMake(minX, minY, maxX, maxY);
@@ -340,7 +335,7 @@
 	NSPoint bottomLeft  = NSMakePoint (minX, minY);  
   NSPoint centerPoint = NSMakePoint(minX + INNER_RADIUS, (maxY - minY) * 0.5);
     
-  rightArrow = [[CALayer layer] retain];
+  rightArrow = [CALayer layer];
   rightArrow.name = @"rightArrow";
   rightArrow.autoresizingMask = kCALayerHeightSizable;
   rightArrow.frame = CGRectMake(minX, minY, maxX, maxY);
@@ -494,27 +489,37 @@
 
 - (void) addMask:(NSImage*)maskImage toLayer:(CALayer*)layer {  
 
-  CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)[maskImage TIFFRepresentation], NULL);
-  CGImageRef maskRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);  
-  CFRelease(source);
-  
-  CALayer* maskLayer = [CALayer layer];    
-  maskLayer.frame = layer.frame;
-  maskLayer.position = CGPointMake(0, 0);
-  maskLayer.anchorPoint = CGPointMake(0,0);  
-  [maskLayer setContents:(id)CFBridgingRelease(maskRef)];
-  
-  [layer setMask:maskLayer];
-  CGImageRelease(maskRef);
+//  CGImageSourceRef source = CGImageSourceCreateWithData()[maskImage TIFFRepresentation], NULL);
+//  CGImageRef maskRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
+//  CFRelease(source);
+//	CGImageRef maskRef = maskImage.cgImageRef;
+
+	CALayer* maskLayer = [CALayer layer];
+  	maskLayer.frame = layer.frame;
+  	maskLayer.position = CGPointMake(0, 0);
+  	maskLayer.anchorPoint = CGPointMake(0,0);
+	[self addContents:maskImage toLayer:layer];
+//  	[maskLayer setContents:(id)CFBridgingRelease(maskRef)];
+
+	[layer setMask:maskLayer];
+//  	CGImageRelease(maskRef);
 }
 
 - (void) addContents:(NSImage*)contentsImage toLayer:(CALayer*)layer {
-  CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)[contentsImage TIFFRepresentation], NULL);
-  CGImageRef bgRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
-  CFRelease(source);
-  [layer setContents:(id)bgRef];
-  CGImageRelease(bgRef);
-  
+
+
+	[contentsImage setScalesWhenResized:YES];
+
+	layer.contents = contentsImage;
+	if (!layer.contentsGravity)
+		layer.contentsGravity = kCAGravityCenter;
+		
+//  CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)[contentsImage TIFFRepresentation], NULL);
+//  CGImageRef bgRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
+//  CFRelease(source);
+//  [layer setContents:(id)CFBridgingRelease(bgRef)];
+//  CGImageRelease(bgRef);
+
 }
 
 #pragma mark -
@@ -522,7 +527,7 @@
 
 - (void)startMouseDownTimer {
   [mouseDownTimer invalidate];
-  [mouseDownTimer release]; mouseDownTimer = nil;
+   mouseDownTimer = nil;
   
   NSTimeInterval initialInterval = 0.5; // The initial interval is longer that the regular one
   [NSTimer scheduledTimerWithTimeInterval:initialInterval target:self 
@@ -576,7 +581,6 @@
     mouseDownTimer = [NSTimer scheduledTimerWithTimeInterval:regularInterval target:self 
                                    selector:@selector(periodicMouseDownEvent:) 
                                    userInfo:NULL repeats:YES];
-    [mouseDownTimer retain];
   }
   
 }
