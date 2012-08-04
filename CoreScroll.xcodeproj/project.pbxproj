@@ -19,11 +19,11 @@
 		7B183F0D15CCC77200DCC82D /* SFScrollPaneLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */; };
 		7B183F0E15CCC77200DCC82D /* SFScrollerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */; };
 		7B183F0F15CCC77200DCC82D /* MiscUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A551671E0D7DDEDE006CAC05 /* MiscUtils.m */; };
-		7B183F1015CCC78800DCC82D /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE315CCC53C00DCC82D /* AtoZ.framework */; };
 		7B183F1115CCC7A400DCC82D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EEB15CCC58B00DCC82D /* QuartzCore.framework */; };
 		7B183F1215CCC7A400DCC82D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE915CCC58200DCC82D /* Foundation.framework */; };
 		7B183F1315CCC7A400DCC82D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE715CCC57600DCC82D /* CoreFoundation.framework */; };
 		7B183F1415CCC7A400DCC82D /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE515CCC56300DCC82D /* ApplicationServices.framework */; };
+		7BB24EBD15CD64F500A54017 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE315CCC53C00DCC82D /* AtoZ.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,11 +72,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB24EBD15CD64F500A54017 /* AtoZ.framework in Frameworks */,
 				7B183EF415CCC75300DCC82D /* Cocoa.framework in Frameworks */,
 				7B183F1115CCC7A400DCC82D /* QuartzCore.framework in Frameworks */,
 				7B183F1215CCC7A400DCC82D /* Foundation.framework in Frameworks */,
 				7B183F1315CCC7A400DCC82D /* CoreFoundation.framework in Frameworks */,
-				7B183F1015CCC78800DCC82D /* AtoZ.framework in Frameworks */,
 				7B183F1415CCC7A400DCC82D /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,14 +90,14 @@
 				A55167010D7DDCF4006CAC05 /* CustomView.h */,
 				A55167020D7DDCF4006CAC05 /* CustomView.m */,
 				A551670E0D7DDE69006CAC05 /* SFScrollPaneLayer.h */,
-				A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */,
-				A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */,
-				A55167110D7DDE69006CAC05 /* SFSnapShotLayer.h */,
 				A55167120D7DDE69006CAC05 /* SFTimeLineLayout.h */,
-				A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */,
+				A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */,
+				A55167110D7DDE69006CAC05 /* SFSnapShotLayer.h */,
+				A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */,
 				A55167140D7DDE69006CAC05 /* SFScrollerProtocols.h */,
-				A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */,
+				A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */,
 				A55167160D7DDE69006CAC05 /* SFScrollerLayer.h */,
+				A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */,
 				A551671D0D7DDEDE006CAC05 /* MiscUtils.h */,
 				A551671E0D7DDEDE006CAC05 /* MiscUtils.m */,
 			);
@@ -323,21 +323,22 @@
 		7B183F0815CCC75400DCC82D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Library/Frameworks,
 					"\"$(SRCROOT)/../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "CoreScroll/CoreScroll-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -348,8 +349,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "CoreScroll/CoreScroll-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -358,8 +363,8 @@
 		7B183F0915CCC75400DCC82D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -367,17 +372,22 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Library/Frameworks,
 					"\"$(SRCROOT)/../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "CoreScroll/CoreScroll-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "CoreScroll/CoreScroll-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

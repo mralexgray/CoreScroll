@@ -9,14 +9,18 @@
 #define XMARGIN 0.0//30.0
 
 @implementation SFSnapShotLayer
+{
 
+	CGGradientRef backgroundGradient;
+
+}
 static NSInteger snapshotNumber;
 
 
 @synthesize isSelected	= _isSelected;
 @synthesize labelLayer 	= _labelLayer;
 @synthesize objectRep 	= _objectRep;
-@synthesize rootLayer, trannyLayer, constrainLayer, contentLayer, imageLayer, gradLayer;
+@synthesize trannyLayer, constrainLayer, contentLayer, imageLayer, gradLayer;
 
 
 // TODO -- rename method
@@ -24,26 +28,19 @@ static NSInteger snapshotNumber;
 
 
 
-	CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-	backgroundGradient = CGGradientCreateWithColorComponents(colorspace, components, locations, num_locations);
-
-	// CA setup
-	[self setWantsLayer:YES];
+	SFSnapShotLayer *root = [[[self class] alloc] init];
+	root.anchorPoint = CGPointMake(0, 0);
+	root.bounds = CGRectMake(00, 00, 60, 30);
+	root.layoutManager = [CAConstraintLayoutManager layoutManager];
 
 	// Our container layer
-	containerLayer = [CALayer layer];
-	containerLayer.anchorPoint = CGPointMake(0, 0);
-	[[self layer] addSublayer:containerLayer];
-
-			SFSnapShotLayer* contentLayer = [[[self class] alloc] init];
-
+	CALayer *contentLayer = [CALayer layer];
+	root.contentLayer = contentLayer;
+	contentLayer.anchorPoint = CGPointMake(0, 0);
 	contentLayer.bounds = CGRectMake(00, 00, 60, 30);
-	contentLayer.anchorPoint = CGPointMake(0.0, 0.0);
-
 	contentLayer.borderWidth = 2.0;
 	contentLayer.borderColor = SFWhiteColor;
 	contentLayer.backgroundColor = SFBlackColor;
-	contentLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
 
 	snapshotNumber++;
 	NSDictionary* textStyle = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -73,11 +70,12 @@ static NSInteger snapshotNumber;
 
 
 	[contentLayer addSublayer:labelLayer];
-	[contentLayer setLabelLayer:labelLayer];
+	[root setLabelLayer:labelLayer];
+	[root addSublayer:contentLayer];
 
 
 	//[contentLayer autorelease];
-	return contentLayer;
+	return root;
 }
 
 - (void) setObjectRep:(id)objectRep {
@@ -88,21 +86,28 @@ static NSInteger snapshotNumber;
 
 }
 
-- (CAGradientLayer *) gradLayer {
+- (CALayer *) gradLayer {
+
 
 	size_t num_locations = 3;
 	CGFloat locations[3] = { 0.0, 0.7, 1.0 };
 	CGFloat components[12] = {	0.0, 0.0, 0.0, 1.0,
 		0.5, 0.7, 1.0, 1.0,
 		1.0, 1.0, 1.0, 1.0 };
-	NSImage* compositeImage = [[NSImage alloc] initWithSize:self.bounds.size];
+	
+	CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+	backgroundGradient = CGGradientCreateWithColorComponents(colorspace, components, locations, num_locations);
+
+	CGSize b = self.bounds.size;
+	
+	NSImage* compositeImage = [[NSImage alloc] initWithSize:b];
 
     [compositeImage lockFocus];
 
 	CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
 	CGContextDrawRadialGradient(ctx, backgroundGradient,
-								CGPointMake(width/2, height), width,
-								CGPointMake(width/2, -height/2), 0,
+								CGPointMake(b.width/2, b.height), b.width,
+								CGPointMake(b.width/2, -b.height/2), 0,
 								kCGGradientDrawsAfterEndLocation);
 
 

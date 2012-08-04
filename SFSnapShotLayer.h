@@ -14,13 +14,13 @@ BOOL _isSelected;
 
 + (SFSnapShotLayer*)rootSnapshot;
 
-@property (nonatomic, retain) CALayer* rootLayer;
+//@property (nonatomic, retain) CALayer* rootLayer;
 @property (nonatomic, retain) CATransformLayer* trannyLayer;
 @property (nonatomic, retain) CAConstraintLayoutManager* constrainLayer;
 
 @property (nonatomic, retain) CALayer* contentLayer;
 @property (nonatomic, retain) CATextLayer* labelLayer;
-@property (nonatomic, retain) CAGradientLayer* gradLayer;
+@property (nonatomic, retain) CALayer* gradLayer;
 @property (nonatomic, retain) CALayer* imageLayer;
 @property BOOL isSelected;
 
