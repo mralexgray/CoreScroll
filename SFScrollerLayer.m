@@ -44,8 +44,7 @@
 	self.borderWidth = BORDERWIDTH;
 	self.borderColor = BORDERCOLOR;
 	self.frame = CGRectMake(0, 0, ARROW_WIDTH, SCROLLER_HEIGHT);
-	[self addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
-	[self addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth relativeTo:@"superlayer" attribute:kCAConstraintWidth offset:0]];
+	[self setConstraints:@[ AZConstRelSuper(kCAConstraintMidX), AZConstRelSuper(kCAConstraintWidth) ]];
 	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 
 	[self createLeftArrow];
@@ -102,62 +101,76 @@
 - (void) createScrollTray {
 	tray = [CALayer layer];
 	tray.autoresizingMask = kCALayerHeightSizable;
-	tray.backgroundColor = cgGREEN;//SPACERCOLOR;
+	tray.backgroundColor = cgCLEARCOLOR;// cgGREEN;//SPACERCOLOR;
 	tray.layoutManager = [CAConstraintLayoutManager layoutManager];
-	NSUInteger columns = 10;
-	for (int c = 0; c < columns ; c++) {
-		CALayer *cell = [CALayer layer];
-		cell.frame = self.bounds;
-//		t.size.height = 50;
-//		cell.anchorPoint = CGPointMake(0.0f,0.5f);
-//		cell.zPosition = c*100;
-//		[cell setBounds:CGRectMake(0,0,100,self.bounds.size.height)];
-//		cell.borderColor =  CGColorCreateGenericGray(0.8, 0.8);
-//		cell.borderWidth = 1;  cell.cornerRadius = 4;
-		cell.backgroundColor = cgRANDOMCOLOR;
-//		cell.shadowOffset = CGSizeMake(5,5);
-//		cell.shadowColor = cgBLACK;
-//		cell.shadowRadius = 10;
-//		cell.name = [NSString stringWithFormat:@"%u", c];
-		[cell setConstraints:@[ AZConstRelSuperScaleOff(kCAConstraintWidth,  1.0 / columns, 25),
-								AZConstRelSuperScaleOff(kCAConstraintHeight, .1, 0),
-		 [CAConstraint constraintWithAttribute: kCAConstraintMinX
-									relativeTo: @"superlayer"
-									 attribute: kCAConstraintMaxX
-										 scale: c / (float)columns
-										offset: -10]]];
-		//$(@"%u", c+1)
-	[tray addSublayer:cell];
-}
+//	NSUInteger columns = 10;
+//	for (int c = 0; c < columns ; c++) {
+
 	CGFloat trayOffset = ARROW_WIDTH - INNER_RADIUS;
-	[tray addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMaxY]];
-	[tray addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"superlayer" attribute:kCAConstraintMinY]];
-	[tray addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"rightArrow" attribute:kCAConstraintMaxX offset:-trayOffset]];
-	[tray addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX relativeTo:@"leftArrow" attribute:kCAConstraintMinX offset:trayOffset]];
+	[tray setConstraints: @[ AZConstRelSuper(kCAConstraintMaxY), AZConstRelSuper(kCAConstraintMinY),
+	// I think these next few are what keep the stroller from being same when is the actual layers being schooled about
+	 [CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"rightArrow" attribute:kCAConstraintMaxX offset:-trayOffset],
+	 [CAConstraint constraintWithAttribute:kCAConstraintMinX relativeTo:@"leftArrow" attribute:kCAConstraintMinX offset:trayOffset] ]];
 	[self createSlider];
 	[tray addSublayer:slider];
+	__block NSUInteger ct = [[AtoZ dockSorted]count];
+	[[AtoZ dockSorted]each:^(id obj, NSUInteger index, BOOL *stop) {
+		
+		CALayer *cell = [CALayer layer];
+		cell.frame = tray.bounds;// self.bounds;
+		//		cell.name = $(@"%i", c);
+		//		t.size.height = 50;
+		//		cell.anchorPoint = CGPointMake(0.0f,0.5f);
+		//		cell.zPosition = c*100;
+		//		[cell setBounds:CGRectMake(0,0,100,self.bounds.size.height)];
+		//		cell.borderColor =  CGColorCreateGenericGray(0.8, 0.8);
+		//		cell.borderWidth = 1;  cell.cornerRadius = 4;
+		cell.backgroundColor = [[obj valueForKey:@"color"]CGColor];
+		cell.zPosition = -1999;  //cgRANDOMCOLOR;
+		//		cell.shadowOffset = CGSizeMake(5,5);
+		//		cell.shadowColor = cgBLACK;
+		//		cell.shadowRadius = 10;
+		//		cell.name = [NSString stringWithFormat:@"%u", c];
+		//		float calcedWidth = 1.0 / columns;
+		//		float calcedPos = ((c * calcedWidth) - (calcedWidth /2));
+		[cell setConstraints:@[ //AZConstRelSuper			(kCAConstraintWidth),
+		 AZConstRelSuper			(kCAConstraintHeight),
+		 AZConstRelSuper			(kCAConstraintMidY),
+		 AZConstRelSuperScaleOff 	(kCAConstraintWidth, ( 1/(float)ct), 0),  //columns), 0 ),  //25
+		 AZConstRelSuperScaleOff	(kCAConstraintMidX, (index / (float)ct), 0) ]];///columns),0 )]] ;// ( 1/columns)* calcedPos)]];
+		//		 [CAConstraint constraintWithAttribute: kCAConstraintMidx
+		//									relativeTo: (c ==0 ? @"superlayer" : $(@"%i", c));
+		//									 attribute: kCAConstraintMaxX
+		//										 scale: 1	//c / (float)columns
+		//										offset: c * -10]]];
+		//$(@"%u", c+1)
+		[tray addSublayer:cell];
+	}];
+
+
 }
 - (void) createSlider {
 	CGFloat sliderHeight = SCROLLER_HEIGHT - BORDERWIDTH * 2;
 	CGFloat initialWidth = SLIDER_MIN_WIDTH;
 	slider = [CALayer layer];
 	slider.frame = CGRectMake(0, 0, initialWidth, sliderHeight);
-	[slider addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMaxY offset:-BORDERWIDTH]];
-	[slider addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:BORDERWIDTH]];
+//	[slider setConstraints:@[ 	AZConstRelSuperScaleOff( kCAConstraintMaxY, 1, -BORDERWIDTH),
+//								AZConstRelSuperScaleOff( kCAConstraintMinY, 1,  BORDERWIDTH) ]];
+// 	AZConstRelSuperScaleOff( kCAConstraintMaxY, 2, 0),// -BORDERWIDTH),
+	[slider setConstraints:@[   AZConstRelSuperScaleOff( kCAConstraintHeight, 2, 0),
+								AZConstRelSuper(kCAConstraintMinX)]];
 	slider.layoutManager = [CAConstraintLayoutManager layoutManager];
-	CALayer* leftSide = [CALayer layer];
-	leftSide.frame = CGRectMake(0, 0, INNER_RADIUS, sliderHeight);
-	leftSide.name = @"leftSide";
-	[leftSide addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX relativeTo:@"superlayer" attribute:kCAConstraintMinX]];
-	[leftSide addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMaxY]];
-	CALayer* middle = [CALayer layer];
+/*	CALayer* leftSide = [CALayer layer];	CALayer* middle = [CALayer layer];	CALayer* rightSide = [CALayer layer];
+
+	leftSide.frame = CGRectMake(0, 0, INNER_RADIUS, sliderHeight);		leftSide.name = @"leftSide";
 	middle.frame = CGRectMake(0, 0, INNER_RADIUS, sliderHeight);
-	[middle addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX relativeTo:@"superlayer" attribute:kCAConstraintMinX offset:INNER_RADIUS-1]];
-	[middle addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"superlayer" attribute:kCAConstraintMaxX offset:-INNER_RADIUS+1]];
-	CALayer* rightSide = [CALayer layer];
-	rightSide.frame = CGRectMake(0, 0, INNER_RADIUS, sliderHeight);
-	rightSide.name = @"rightSide";
-	[rightSide addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX relativeTo:@"superlayer" attribute:kCAConstraintMaxX]];
+	rightSide.frame = CGRectMake(0, 0, INNER_RADIUS, sliderHeight);		rightSide.name = @"rightSide";
+
+	[leftSide setConstraints:@[	AZConstRelSuper(kCAConstraintMinX),
+								AZConstRelSuper(kCAConstraintMaxY) ]];
+	[middle setConstraints:@[ 	AZConstRelSuperScaleOff(kCAConstraintMinX, 1,INNER_RADIUS-1),
+								AZConstRelSuperScaleOff(kCAConstraintMaxX, 1,-INNER_RADIUS+1) ]];
+	[rightSide addConstraint:	AZConstRelSuper(kCAConstraintMaxX)];
 
 	NSImage* bgImage = [self createGlassImageForSize:NSMakeSize(initialWidth, sliderHeight)];
 	// crop the image into 3 pieces
@@ -178,6 +191,18 @@
 	[slider addSublayer:leftSide];
 	[slider addSublayer:rightSide];
 	[slider addSublayer:middle];
+(*/
+
+
+	NSImage *dp = [NSImage imageInFrameworkWithFileName:@"missingdial.png"];
+	if (!dp) NSBeep();
+	[dp setScalesWhenResized:YES];
+	slider.contents = dp;
+	slider.contentsGravity =kCAGravityResizeAspect;
+//	[slider
+//	[slider addSublayer:middle];
+
+
 }
 
 // Makes the left and right side of the slider rounded based on the points provided
@@ -187,8 +212,7 @@
 	[path moveToPoint:pt1];
 	[path curveToPoint:pt2 controlPoint1:NSMakePoint(pt2.x, pt1.y) controlPoint2:pt2];
 	[path curveToPoint:pt3 controlPoint1:NSMakePoint(pt2.x, pt3.y) controlPoint2:pt3];
-	[image lockFocus];
-	{
+	[image lockFocus]; {
 		NS_BORDERCOLOR
 		[path stroke];
 	}
@@ -196,8 +220,7 @@
 	// Close the path so that we can create the rounded mask
 	[path lineToPoint:pt1];
 	NSImage* maskImage = [[NSImage alloc] initWithSize:NSMakeSize([path bounds].size.width, [path bounds].size.height)];
-	[maskImage lockFocus];
-	{
+	[maskImage lockFocus]; {
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] set];
 		[path fill];
 		[path stroke];
@@ -225,8 +248,8 @@
 	leftArrow.autoresizingMask = kCALayerHeightSizable;
 	leftArrow.frame = CGRectMake(minX, minY, maxX, maxY);
 	[leftArrow setConstraints:@[	AZConstRelSuper(kCAConstraintMaxY),
-									AZConstRelSuper(kCAConstraintMinY),
-									AZConstRelSuper(kCAConstraintMinX)]];
+	 AZConstRelSuper(kCAConstraintMinY),
+	 AZConstRelSuper(kCAConstraintMinX)]];
 	CALayer* arrowContent = [CALayer layer];
 	arrowContent.frame = leftArrow.frame;
 	[leftArrow addSublayer:arrowContent];
@@ -267,8 +290,8 @@
 	rightArrow.autoresizingMask = kCALayerHeightSizable;
 	rightArrow.frame = CGRectMake(minX, minY, maxX, maxY);
 	[rightArrow setConstraints:@[	AZConstRelSuper(kCAConstraintMaxY),
-									AZConstRelSuper(kCAConstraintMaxX),
-									AZConstRelSuper(kCAConstraintMinY)]];
+	 AZConstRelSuper(kCAConstraintMaxX),
+	 AZConstRelSuper(kCAConstraintMinY)]];
 	CALayer* arrowContent = [CALayer layer];
 	arrowContent.frame = rightArrow.frame;
 	[rightArrow addSublayer:arrowContent];
@@ -291,8 +314,7 @@
 }
 - (void)setContentForArrowLayer:(CALayer*)arrowContent withArrow:(NSBezierPath*)arrowPath andBorder:(NSBezierPath*)borderPath {
 	NSImage* bgImage = [self createGlassImageForSize:NSMakeSize(ARROW_WIDTH, SCROLLER_HEIGHT)];
-	[bgImage lockFocus];
-	{
+	[bgImage lockFocus]; {
 		NS_BORDERCOLOR
 		[arrowPath fill];
 		[arrowPath stroke];
@@ -331,8 +353,7 @@
 		 controlPoint2:pt4];
 	[path lineToPoint:pt5];
 	NSImage* maskImage = [[NSImage alloc] initWithSize:NSMakeSize([path bounds].size.width, [path bounds].size.height)];
-	[maskImage lockFocus];
-	{
+	[maskImage lockFocus]; {
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] set];
 		[path fill];
 		[path stroke];
@@ -370,8 +391,7 @@
 	NSRect bottomGlassRect = NSMakeRect(0, 1, size.width, INNER_RADIUS - 1);
 
 	NSImage* glassedImage = [[NSImage alloc] initWithSize:size];
-	[glassedImage lockFocus];
-	{
+	[glassedImage lockFocus]; {
 		[[NSColor colorWithCalibratedWhite:0.0 alpha:1.0] set];
 		[NSBezierPath fillRect:NSMakeRect(0, 0, size.width, size.height)];
 		[topGlassGradient drawInBezierPath:glassEffect angle:90.0];
@@ -410,37 +430,26 @@
 	//[layer setContents:(id)CFBridgingRelease(bgRef)];
 	//CGImageRelease(bgRef);
 }
-#pragma mark -
-#pragma mark Event Methods
+
+#pragma mark - Event Methods
+
 - (void)startMouseDownTimer {
-	[mouseDownTimer invalidate];
-	mouseDownTimer = nil;
+	[mouseDownTimer invalidate]; 	mouseDownTimer = nil;
 	NSTimeInterval initialInterval = 0.5; // The initial interval is longer that the regular one
-	[NSTimer scheduledTimerWithTimeInterval:initialInterval target:self
-								   selector:@selector(periodicMouseDownEvent:)
-								   userInfo:NULL repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:initialInterval target:self  selector:@selector(periodicMouseDownEvent:) userInfo:NULL repeats:NO];
 }
 
-// If the user holds down the mouse keep scrolling
-- (void)periodicMouseDownEvent:(NSTimer *)timer {
-	// Input stopped through a mouseUp event
-	if ( _inputMode == SFNoInput ) {
-		[timer invalidate];
-		return;
-	}
-	if ( _mouseOverSelectedInput) {
-		if (_inputMode == SFLeftArrowInput ) {
-			[_scrollerContent moveScrollView:-[_scrollerContent stepSize]];
-		}
-		if (_inputMode == SFRightArrowInput ) {
-			[_scrollerContent moveScrollView:[_scrollerContent stepSize]];
-		}
+- (void)periodicMouseDownEvent:(NSTimer *)timer {  		// If the user holds down the mouse keep scrolling
+
+	if ( _inputMode == SFNoInput ) { 	[timer invalidate];	return; }					// Input stopped through a mouseUp event
+	if ( _mouseOverSelectedInput ) {
+		if ( _inputMode == SFLeftArrowInput ) [_scrollerContent moveScrollView:-[_scrollerContent stepSize]];
+		if (_inputMode == SFRightArrowInput ) [_scrollerContent moveScrollView:[_scrollerContent stepSize]];
+
 		CGPoint trayPoint = [tray convertPoint:_mouseDownPointForCurrentEvent fromLayer:tray.superlayer];
 		if (_inputMode == SFTrayInputLeft || _inputMode == SFTrayInputRight ) {
-			if ( CGRectContainsPoint ( slider.frame, trayPoint ) ) {
-				// Stop moving the tray when the slider hits the mouse
-				_inputMode = SFNoInput;
-			}
+			if ( CGRectContainsPoint ( slider.frame, trayPoint ) )
+				_inputMode = SFNoInput;  		// Stop moving the tray when the slider hits the mouse
 		}
 		if (_inputMode == SFTrayInputLeft && trayPoint.x < slider.frame.origin.x) {
 			[_scrollerContent moveScrollView:-[_scrollerContent visibleWidth]];
@@ -525,28 +534,20 @@
 	}
 }
 
-- (void)mouseUp:(CGPoint)inputPoint {
-	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
-	leftArrowHighlight.hidden = YES;
-	rightArrowHighlight.hidden = YES;
-	_inputMode = SFNoInput;
-	_mouseOverSelectedInput = NO;
+- (void)mouseUp:(CGPoint)inputPoint {		[CATransaction setValue:@0.0f forKey:@"animationDuration"];
+	leftArrowHighlight.hidden = YES;		rightArrowHighlight.hidden = YES;
+	_inputMode = SFNoInput;					_mouseOverSelectedInput = NO;
 }
-#pragma mark -
-#pragma mark SFScrollerContentController Methods
-- (BOOL)isRepositioning {
-	return _inputMode != SFNoInput;
-}
+
+#pragma mark - SFScrollerContentController Methods
+
+- (BOOL)isRepositioning {	return _inputMode != SFNoInput;	}
+
 - (void)scrollPositionChanged:(CGFloat)position {
-	if (_inputMode == SFSliderInput ) {
-		// The user is dragging the slider so ignore the message
-		return;
-	}
-	
+	if (_inputMode == SFSliderInput ) return;			// The user is dragging the slider so ignore the message
 	CGFloat percentage = position / ([_scrollerContent contentWidth] - [_scrollerContent visibleWidth]);
 	CGFloat newX = (tray.frame.size.width - slider.frame.size.width ) * percentage;
-	[CATransaction begin];
-	{
+	[CATransaction begin]; {
 		[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 		[self setSliderPosition:newX];
 	}
@@ -554,11 +555,10 @@
 }
 - (void)scrollContentResized {
 	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
-	if ( !_scrollerContent || [_scrollerContent visibleWidth] >= [_scrollerContent contentWidth] ) {
-		self.hidden = YES;
-	} else {
-		self.hidden = NO;
-		[self setSliderWidth: [_scrollerContent visibleWidth] / [_scrollerContent contentWidth] ];
+	if ( !_scrollerContent || [_scrollerContent visibleWidth] >= [_scrollerContent contentWidth] )
+				self.hidden = YES;
+	else { 		self.hidden = NO;
+				[self setSliderWidth: [_scrollerContent visibleWidth] / [_scrollerContent contentWidth] ];
 	}
 }
 @end

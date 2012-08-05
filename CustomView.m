@@ -104,8 +104,7 @@
 	// every app with eye candy needs a slow mode invoked by the shift key
 	if ([e modifierFlags] & (NSAlphaShiftKeyMask|NSShiftKeyMask))
 		[CATransaction setValue:@SHIFT_ANIM_SPEED forKey:@"animationDuration"];
-	switch ([e keyCode])
-	{
+	switch ([e keyCode]) {
 		case SFLeftArrowKey:
 			[self moveSelection:-1];
 			break;
