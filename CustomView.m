@@ -29,7 +29,7 @@
 - (void)setupLayers {
 	CGRect viewFrame = NSRectToCGRect( self.frame );
 	viewFrame.origin.y = 0;
-	self.wantsLayer = YES;															// create a layer and match its frame to the view's frame
+	self.wantsLayer = YES;						// create a layer and match its frame to the view's frame
 	mainLayer = self.layer;
 	mainLayer.name = @"mainLayer";
 	mainLayer.frame = viewFrame;
@@ -41,25 +41,29 @@
 	CGFloat midY = CGRectGetMidY( mainLayer.frame );
 
 	// create a "container" layer for all content layers same frame as the view's master layer, automatically resizes as necessary.
-	CALayer* contentContainer = [CALayer layer];
-	contentContainer.bounds = mainLayer.bounds;
-	contentContainer.delegate = self;
-	contentContainer.anchorPoint= CGPointMake(0.5,0.5);
-	contentContainer.position = CGPointMake( midX, midY );
+	CALayer* contentContainer 		= [CALayer layer];
+	contentContainer.bounds 			= mainLayer.bounds;
+	contentContainer.delegate 		= self;
+	contentContainer.anchorPoint	= CGPointMake(0.5,0.5);
+	contentContainer.position 		= CGPointMake( midX, midY );
+	contentContainer.layoutManager	= [CAConstraintLayoutManager layoutManager];
 	contentContainer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-	[contentContainer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	[self.layer addSublayer:contentContainer];
 
 	scrollerLayer = [SFScrollerLayer layer];
 	scrollerLayer.name = @"scroller";
 	[scrollerLayer setConstraints:@[
 
-//		AZConstRelSuperScaleOff( kCAConstraintMinY, 		1, 	40	),
-		AZConstRelSuper(kCAConstraintMaxX), AZConstRelSuper(kCAConstraintMinX),
-		AZConstRelSuper(kCAConstraintWidth),AZConstRelSuper(kCAConstraintMaxY),
-		AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
+		AZConstRelSuperScaleOff( kCAConstraintMinY, 		1, 	40),
+		AZConstRelSuper( kCAConstraintMaxX ),
+		AZConstRelSuper( kCAConstraintMinX ),
+		AZConstRelSuper( kCAConstraintMinY ),
+		AZConstRelSuper( kCAConstraintWidth),
+//		AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
 		 ]];
-//		[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer"
+//		[CAConstraint constraintWithAttribute
+
+//		:kCAConstraintMaxY relativeTo:@"superlayer"
 //				attribute:kCAConstraintMinY offset:0] ]];//		10 + SCROLLER_HEIGHT]]];
 
 	bodyLayer = [SFScrollPaneLayer layer];
@@ -69,12 +73,15 @@
 	bodyLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[bodyLayer setLayoutManager:[SFTimeLineLayout layoutManager]];
 	[bodyLayer setConstraints:@[
-		AZConstRelSuper( 		 kCAConstraintMaxY				),
-	 	AZConstRelSuperScaleOff( kCAConstraintWidth, 	1,	 0	),  //-20
-//	 	AZConstRelSuperScaleOff( kCAConstraintMinY,		.2,  0	),
-		AZConstRelSuperScaleOff( kCAConstraintHeight, 	.8,	 0	)]];  //-10
+		AZConstRelSuper( kCAConstraintMaxY  ),
+		AZConstRelSuper( kCAConstraintMaxX  ),
+		AZConstRelSuper( kCAConstraintMinX  ),
+		AZConstRelSuper( kCAConstraintMidX  ),
+	 	AZConstRelSuper( kCAConstraintWidth ), //AZConstRelSuperScaleOff( kCAConstraintWidth, 	1,	 0	),  //-20
+	 	AZConstRelSuperScaleOff( kCAConstraintMinY,		1,  40	)]];
+//		AZConstRelSuperScaleOff( kCAConstraintHeight, 	.8,	 0	)]];  //-10
 
-	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"scroller" attribute:kCAConstraintMaxY offset:10]];
+//	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"scroller" attribute:kCAConstraintMaxY offset:10]];
 
 	// TODO -- SFScrollLayer -- has reference to site and listens for change methods
 

@@ -68,25 +68,21 @@ return NSMakePoint(toCopy.x, toCopy.y);
 
 
 static inline CGRect
-convertToCGRect(NSRect rect)
-{
+convertToCGRect(NSRect rect) {
 return *(const CGRect *)&rect;
 }
 
 static inline NSRect
-convertToNSRect(CGRect rect)
-{
+convertToNSRect(CGRect rect) {
 return *(const NSRect *)&rect;
 }
 
 static inline NSPoint
-convertToNSPoint(CGPoint point)
-{
+convertToNSPoint(CGPoint point) {
 return *(const NSPoint *)&point;
 }
 
 static inline CGPoint
-convertToCGPoint(NSPoint point)
-{
+convertToCGPoint(NSPoint point) {
 return *(const CGPoint *)&point;
 }

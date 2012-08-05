@@ -5,11 +5,10 @@
 #define SFWhiteColor  CGColorCreateGenericRGB(1.0f,1.0f,1.0f,1.0f)
 
 
-#define YMARGIN 20.0 // JUST RIGHT
+#define YMARGIN 40.0 // JUST RIGHT
 #define XMARGIN 0.0//30.0
 
-@implementation SFSnapShotLayer
-{
+@implementation SFSnapShotLayer {
 
 	CGGradientRef backgroundGradient;
 

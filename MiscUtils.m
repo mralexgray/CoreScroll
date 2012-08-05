@@ -41,8 +41,7 @@
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect {
 
 NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
-[cropImage lockFocus];
-{
+[cropImage lockFocus]; {
 [sourceImage drawInRect:NSMakeRect(0, 0, sourceRect.size.width, sourceRect.size.height)
  fromRect:sourceRect 
 operation:NSCompositeSourceOver fraction:1.0];
@@ -64,8 +63,7 @@ float yDistance = pointB.y - pointA.y;
 // up and/or to the left (lower coordinate values) or down and
 // to the right (higher coordinate values). 
 NSRect returnRect;
-if ( pointB.x < pointA.x )
-{
+if ( pointB.x < pointA.x ) {
 returnRect.origin.x= pointA.x + xDistance;
 returnRect.size.width= fabs(xDistance);
 } else {
@@ -73,8 +71,7 @@ returnRect.origin.x= pointA.x;
 returnRect.size.width= xDistance;
 }
 
-if ( pointB.y < pointA.y )
-{
+if ( pointB.y < pointA.y ) {
 returnRect.origin.y= pointA.y + yDistance;
 returnRect.size.height = fabs(yDistance);
 } else {
