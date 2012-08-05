@@ -2,30 +2,22 @@
 #import "SFTimeLineLayout.h"
 #import <Foundation/Foundation.h>
 
-
 NSString *selectedSnapShot = @"selectedSnapShot";
 
-
-
 @implementation SFTimeLineLayout
-
 static SFTimeLineLayout *sharedLayoutManager;
-
 + (id)layoutManager {
 	if (sharedLayoutManager == nil) {
 		sharedLayoutManager = [[self alloc] init];
 	}
 	return sharedLayoutManager;
 }
-
 - (SFTimeLineLayout *)init {
 	if ([super init]) {
 		
 	}
-
 	return self;
 }
-
 - (CGPoint)scrollPointForSelected: (CALayer*)layer {
  	NSNumber *number 	= 	[layer valueForKey:selectedSnapShot];
 	int selectedIndex 	= ( number != nil ? [number intValue] : 0 );
@@ -55,14 +47,12 @@ static SFTimeLineLayout *sharedLayoutManager;
   return newVisRect.origin;  
 }
 
-
 - (CGSize)preferredSizeOfLayer:(CALayer *)layer {
   NSInteger i = [layer.sublayers count];
   CGFloat currentSnapshotDim = layer.bounds.size.height - YMARGIN * 2;
   
   return CGSizeMake(XMARGIN*(i+1) +currentSnapshotDim*i, layer.frame.size.height);
 }
-
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer {
   //NSLog(@"layoutSublayersOfLayer called "  );
@@ -73,7 +63,6 @@ static SFTimeLineLayout *sharedLayoutManager;
   
   NSInteger i;
   CALayer* subLayer;
-
   for ( i = 0; i < count; i++ ) {
     subLayer = [array objectAtIndex:i]; 
     subLayer.frame = CGRectMake(XMARGIN*(i+1) +currentSnapshotDim*i, YMARGIN, 
@@ -81,5 +70,4 @@ static SFTimeLineLayout *sharedLayoutManager;
   }
     
 }
-
 @end
