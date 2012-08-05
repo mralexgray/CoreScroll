@@ -11,48 +11,36 @@
 #define SFRightArrowKey 124
 #define SHIFT_ANIM_SPEED 2.0f
 
-@interface CustomView (PrivateMethods)
-- (void)setupLayers;
-- (void)setupListeners;
-- (void)moveSelection:(NSInteger)dx;
-@end
+//@interface CustomView (PrivateMethods)
+//- (void)setupLayers;
+//- (void)setupListeners;
+//- (void)moveSelection:(NSInteger)dx;
+//@end
 
 @implementation CustomView
 
-- (void)awakeFromNib {
-	// draw a basic gradient for the view background
-	NSColor* gradientBottom = [NSColor colorWithCalibratedWhite:0.10 alpha:1.0];
-	NSColor* gradientTop= [NSColor colorWithCalibratedWhite:0.35 alpha:1.0];
-
-	bgGradient = [[NSGradient alloc] initWithStartingColor:gradientBottom
-											   endingColor:gradientTop];
-
-	[self setupLayers];
-	[self setupListeners];
+- (void)awakeFromNib {							  if (1)   [[NSLogConsole sharedConsole] open];
+														   /* draw a basic gradient for view background*/
+	bgGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.10 alpha:1.0]
+											   endingColor:[NSColor colorWithCalibratedWhite:0.35 alpha:1.0]];
+	[self setupLayers];	[self setupListeners];
 }
-
 
 - (void)setupLayers {
 	CGRect viewFrame = NSRectToCGRect( self.frame );
 	viewFrame.origin.y = 0;
-
-	// create a layer and match its frame to the view's frame
-	self.wantsLayer = YES;
-	CALayer* mainLayer = self.layer;
+	self.wantsLayer = YES;															// create a layer and match its frame to the view's frame
+	mainLayer = self.layer;
 	mainLayer.name = @"mainLayer";
 	mainLayer.frame = viewFrame;
 	mainLayer.delegate = self;
-
 	// causes the layer content to be drawn in -drawRect:
 	[mainLayer setNeedsDisplay];
-
 
 	CGFloat midX = CGRectGetMidX( mainLayer.frame );
 	CGFloat midY = CGRectGetMidY( mainLayer.frame );
 
-	// create a "container" layer for all content layers.
-	// same frame as the view's master layer, automatically
-	// resizes as necessary.
+	// create a "container" layer for all content layers same frame as the view's master layer, automatically resizes as necessary.
 	CALayer* contentContainer = [CALayer layer];
 	contentContainer.bounds = mainLayer.bounds;
 	contentContainer.delegate = self;
@@ -62,12 +50,17 @@
 	[contentContainer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	[self.layer addSublayer:contentContainer];
 
-
 	scrollerLayer = [SFScrollerLayer layer];
 	scrollerLayer.name = @"scroller";
-	[scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:10]];
-	[scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:10 + SCROLLER_HEIGHT]];
+	[scrollerLayer setConstraints:@[
 
+//		AZConstRelSuperScaleOff( kCAConstraintMinY, 		1, 	40	),
+		AZConstRelSuper(kCAConstraintMaxX), AZConstRelSuper(kCAConstraintMinX),
+		AZConstRelSuper(kCAConstraintWidth),AZConstRelSuper(kCAConstraintMaxY),
+		AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
+		 ]];
+//		[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer"
+//				attribute:kCAConstraintMinY offset:0] ]];//		10 + SCROLLER_HEIGHT]]];
 
 	bodyLayer = [SFScrollPaneLayer layer];
 	bodyLayer.borderWidth = 0.0;
@@ -75,13 +68,13 @@
 	bodyLayer.scrollMode = kCAScrollHorizontally;
 	bodyLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[bodyLayer setLayoutManager:[SFTimeLineLayout layoutManager]];
-	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
-	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth relativeTo:@"superlayer" attribute:kCAConstraintWidth offset:-20]];
+	[bodyLayer setConstraints:@[
+		AZConstRelSuper( 		 kCAConstraintMaxY				),
+	 	AZConstRelSuperScaleOff( kCAConstraintWidth, 	1,	 0	),  //-20
+//	 	AZConstRelSuperScaleOff( kCAConstraintMinY,		.2,  0	),
+		AZConstRelSuperScaleOff( kCAConstraintHeight, 	.8,	 0	)]];  //-10
+
 	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"scroller" attribute:kCAConstraintMaxY offset:10]];
-	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMaxY offset:-10]];
-
-
-
 
 	// TODO -- SFScrollLayer -- has reference to site and listens for change methods
 
@@ -96,44 +89,30 @@
 	}
 
 
-	[scrollerLayer setScrollerContent:bodyLayer];
-	[bodyLayer setContentController:scrollerLayer];
-
+	[scrollerLayer 	  setScrollerContent:bodyLayer];
+	[bodyLayer 		  setContentController:scrollerLayer];
 	[contentContainer addSublayer:bodyLayer];
 	[contentContainer addSublayer:scrollerLayer];
-
 	[contentContainer layoutSublayers];
 	[contentContainer layoutIfNeeded];
-
 	[bodyLayer selectSnapShot:0];
 }
 
-
 - (void)setupListeners {
-
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appNoLongerActive:)
-												 name:NSApplicationWillResignActiveNotification
-											   object:[NSApplication sharedApplication]];
-
+	name:NSApplicationWillResignActiveNotification		     object:[NSApplication sharedApplication]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:)
-												 name:NSApplicationWillBecomeActiveNotification
-											   object:[NSApplication sharedApplication]];
-
+	name:NSApplicationWillBecomeActiveNotification			 object:[NSApplication sharedApplication]];
 }
 
-#pragma mark -
-#pragma mark NSView Methods
+#pragma mark - NSView Methods
 
-- (void)drawRect:(NSRect)rect {
-	// Everything else is handled by core animation
+- (void) drawRect:(NSRect)rect {		// Everything else is handled by core animation
+
 	[bgGradient drawInRect:self.bounds angle:90.0];
 }
 
-
-
-
-#pragma mark -
-#pragma mark NSResponder Methods
+#pragma mark - NSResponder Methods
 
 - (BOOL)acceptsFirstResponder {
 	return YES;
@@ -214,7 +193,7 @@
 	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	[scrollerLayer setOpacity:0.7];
 	[bodyLayer setOpacity:0.7];
-}
+} 
 
 - (void) appBecameActive:(NSNotification*)notification {
 	[CATransaction setValue:@0.0f forKey:@"animationDuration"];

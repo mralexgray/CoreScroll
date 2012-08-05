@@ -23,6 +23,7 @@
 		7B183F1215CCC7A400DCC82D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE915CCC58200DCC82D /* Foundation.framework */; };
 		7B183F1315CCC7A400DCC82D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE715CCC57600DCC82D /* CoreFoundation.framework */; };
 		7B183F1415CCC7A400DCC82D /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE515CCC56300DCC82D /* ApplicationServices.framework */; };
+		7B23C36A15CE9B7E00DD1A9C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23C36915CE9B7E00DD1A9C /* WebKit.framework */; };
 		7BB24EBD15CD64F500A54017 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE315CCC53C00DCC82D /* AtoZ.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		7B183F0115CCC75300DCC82D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7B183F0215CCC75300DCC82D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7B183F0515CCC75400DCC82D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		7B23C36915CE9B7E00DD1A9C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55167010D7DDCF4006CAC05 /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		A55167020D7DDCF4006CAC05 /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B23C36A15CE9B7E00DD1A9C /* WebKit.framework in Frameworks */,
 				7BB24EBD15CD64F500A54017 /* AtoZ.framework in Frameworks */,
 				7B183EF415CCC75300DCC82D /* Cocoa.framework in Frameworks */,
 				7B183F1115CCC7A400DCC82D /* QuartzCore.framework in Frameworks */,
@@ -134,6 +137,7 @@
 		29B97314FDCFA39411CA2CEA /* CAiTunesScroller */ = {
 			isa = PBXGroup;
 			children = (
+				7B23C36915CE9B7E00DD1A9C /* WebKit.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,

@@ -3,7 +3,7 @@
 
 #import "SFScrollerProtocols.h"
 
-#define SCROLLER_HEIGHT 36.0 // The default height
+#define SCROLLER_HEIGHT 50.0 // The default height
 
 typedef enum {
 	SFNoInput = (1 << 1),
