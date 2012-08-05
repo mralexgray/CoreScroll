@@ -5,7 +5,7 @@
 #define SFWhiteColor  CGColorCreateGenericRGB(1.0f,1.0f,1.0f,1.0f)
 
 
-#define YMARGIN 20.0 // JUST RIGHT
+#define YMARGIN 0.0 // JUST RIGHT
 #define XMARGIN 0.0//30.0
 
 @implementation SFSnapShotLayer
@@ -30,18 +30,21 @@ static NSInteger snapshotNumber;
 
 	SFSnapShotLayer *root = [[[self class] alloc] init];
 	root.anchorPoint = CGPointMake(0, 0);
-	root.bounds = CGRectMake(00, 00, 60, 30);
+	root.bounds = CGRectMake(00, 00, 50, 50);
 	root.layoutManager = [CAConstraintLayoutManager layoutManager];
-
+//	root.constraints = $array(	AZConst(kCAConstraintHeight, @"superlayer"),AZConst(kCAConstraintWidth, @"superlayer"));
+	root.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 	// Our container layer
 	CALayer *contentLayer = [CALayer layer];
 	root.contentLayer = contentLayer;
 	contentLayer.anchorPoint = CGPointMake(0, 0);
-	contentLayer.bounds = CGRectMake(00, 00, 60, 30);
+	contentLayer.bounds = CGRectMake(00, 00, 50, 50);
+	contentLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 	contentLayer.borderWidth = 2.0;
 	contentLayer.borderColor = SFWhiteColor;
 	contentLayer.backgroundColor = SFBlackColor;
-
+	contentLayer.backgroundColor = SFBlackColor;
+	contentLayer.constraints = $array(	AZConst(kCAConstraintHeight, @"superlayer"),AZConst(kCAConstraintWidth, @"superlayer"));
 	snapshotNumber++;
 	NSDictionary* textStyle = [NSDictionary dictionaryWithObjectsAndKeys:
 							   @"Ubuntu Mono Bold", @"font",
@@ -53,9 +56,10 @@ static NSInteger snapshotNumber;
 	labelLayer.style = textStyle;
 	labelLayer.foregroundColor = CGColorCreateGenericRGB(1, 1, 1, 1);
 //	labelLayer.position = CGPointrMake(50, 20+i*50);
-	labelLayer.anchorPoint = CGPointMake(0, 0);
+	labelLayer.anchorPoint = AZCenterOfRect(contentLayer.bounds);
+	labelLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 
-	labelLayer.string = @"Layer with some text";
+	labelLayer.string = @"stub";
 //	labelLayer.bounds = CGRectMake(0, 0, contentLayer.bounds.size.w, contentLayer.bounds.size.height);
 	labelLayer.frame = contentLayer.bounds;
 
@@ -65,8 +69,7 @@ static NSInteger snapshotNumber;
 //	labelLayer.foregroundColor = SFWhiteColor;
 //	labelLayer.font = (__bridge CGFontRef)[NSFont fontWithName:@"Lucida Grande" size:24];
 ////(CFBridgingRetain(@"Lucida Grande");
-	[labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
-	[labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY]];
+	labelLayer.constraints = $array(	AZConst(kCAConstraintHeight, @"superlayer"),AZConst(kCAConstraintWidth, @"superlayer"), AZConst(kCAConstraintMidX, @"superlayer"), AZConst(kCAConstraintMidY, @"superlayer"));
 
 
 	[contentLayer addSublayer:labelLayer];
@@ -81,8 +84,21 @@ static NSInteger snapshotNumber;
 - (void) setObjectRep:(id)objectRep {
 
 	_objectRep = objectRep;
-	imageLayer = [CALayer layer];
-	
+	self.imageLayer = [CALayer layer];
+//	imageLayer.frame = self.contentLayer.bounds;
+//	imageLayer.position = CGPointMake(1,0);
+	imageLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+	imageLayer.constraints = @[
+								AZConstScaleOff(kCAConstraintWidth, @"superlayer",.5,0),
+								AZConstScaleOff(kCAConstraintMaxX, 	@"superlayer", .9,0),
+								AZConst(kCAConstraintMidY, 	@"superlayer")	];
+
+
+	imageLayer.contents = [[objectRep valueForKey:@"image"]coloredWithColor:WHITE];
+	imageLayer.contentsGravity = kCAGravityResizeAspect;
+	[self.contentLayer addSublayer:imageLayer];
+	_labelLayer.string = [[objectRep valueForKey:@"name"] substringWithRange:NSMakeRange(0, 1)];
+	NSLog(@"set objectRepcomplete for:%@",[objectRep valueForKey:@"name"]);
 
 }
 
@@ -119,38 +135,10 @@ static NSInteger snapshotNumber;
 	if(_isSelected) {
 		self.backgroundColor = SFWhiteColor;
 		_labelLayer.foregroundColor = SFBlackColor;
-		[self startWiggling];
 	} else {
 		self.backgroundColor = SFBlackColor;
 		_labelLayer.foregroundColor = SFWhiteColor;
-		[self stopWiggling];
 	}
-}
-
-
-- (void)startWiggling {
-	CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation"];
-	anim.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-0.05],
-				   [NSNumber numberWithFloat:0.05],
-				   nil];
-	anim.duration = RAND_FLOAT_VAL(1,2);
-	anim.autoreverses = YES;
-	anim.repeatCount = HUGE_VALF;
-	[self addAnimation:anim forKey:@"wiggleRotation"];
-
-	anim = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
-	anim.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:-1],
-				   [NSNumber numberWithFloat:1],
-				   nil];
-	anim.duration = RAND_FLOAT_VAL(1,2);//0.07f + ((tileIndex % 10) * 0.01f);
-	anim.autoreverses = YES;
-	anim.repeatCount = HUGE_VALF;
-	anim.additive = YES;
-	[self addAnimation:anim forKey:@"wiggleTranslationY"];
-}
-- (void)stopWiggling {
-	[self removeAnimationForKey:@"wiggleRotation"];
-	[self removeAnimationForKey:@"wiggleTranslationY"];
 }
 
 

@@ -84,9 +84,15 @@
 
 
 	// TODO -- SFScrollLayer -- has reference to site and listens for change methods
-	int i;
-	for ( i = 0; i < 200; i++ ) {
-		[bodyLayer addSublayer:[SFSnapShotLayer rootSnapshot]];
+
+	for (AZFile* i in [AtoZ dockSorted]){
+
+		SFSnapShotLayer *d = [SFSnapShotLayer rootSnapshot];
+		d.objectRep = i;
+		d.contentLayer.backgroundColor = i.color.cgColor;
+
+		NSLog(@"Snapclass: %@ .  Assigned color:%@  Was null: %@.", d.propertiesPlease, 		d.contentLayer.backgroundColor, StringFromBOOL(i.color));
+		[bodyLayer addSublayer:d];
 	}
 
 
