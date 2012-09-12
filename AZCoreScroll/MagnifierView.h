@@ -6,14 +6,14 @@
 //  Copyright 2008 EffectiveUI. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
 #import "DrawView.h"
 
-@interface MagnifierView : UIView {
-	UIView *viewref;
+@interface MagnifierView : NSView {
+	NSView *viewref;
 	CGPoint touchPoint;
-	UIImage *cachedImage;
+	NSImage *cachedImage;
 }
-@property(nonatomic, retain) UIView *viewref;
+@property(nonatomic, retain) NSView *viewref;
 @property(assign) CGPoint touchPoint;
 @end

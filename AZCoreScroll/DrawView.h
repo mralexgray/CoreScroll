@@ -6,9 +6,9 @@
 //  Copyright 2008 EffectiveUI. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 
 
-@interface DrawView : UIView {
+@interface DrawView : NSView {
 }
 @end

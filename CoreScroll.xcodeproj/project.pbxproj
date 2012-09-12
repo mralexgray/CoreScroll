@@ -7,25 +7,64 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B14F1BD15FFDFCD00CBBF7E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EF315CCC75300DCC82D /* Cocoa.framework */; };
+		7B14F1C315FFDFCE00CBBF7E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B14F1C115FFDFCE00CBBF7E /* InfoPlist.strings */; };
+		7B14F1C715FFDFCE00CBBF7E /* AZCoreScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B14F1C615FFDFCE00CBBF7E /* AZCoreScroll.m */; };
+		7B14F1CC15FFE18600CBBF7E /* AZCoreScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = A55167010D7DDCF4006CAC05 /* AZCoreScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B14F1CD15FFE18600CBBF7E /* AZCoreScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167020D7DDCF4006CAC05 /* AZCoreScrollView.m */; };
+		7B14F1CE15FFE18600CBBF7E /* AZTimeLineLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = A55167120D7DDE69006CAC05 /* AZTimeLineLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B14F1CF15FFE18600CBBF7E /* AZTimeLineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A551670F0D7DDE69006CAC05 /* AZTimeLineLayout.m */; };
+		7B14F1D015FFE18600CBBF7E /* AZSnapShotLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = A55167110D7DDE69006CAC05 /* AZSnapShotLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B14F1D115FFE18600CBBF7E /* AZSnapShotLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167100D7DDE69006CAC05 /* AZSnapShotLayer.m */; };
+		7B14F1D215FFE18600CBBF7E /* AZScrollerProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = A55167140D7DDE69006CAC05 /* AZScrollerProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B14F1D315FFE18600CBBF7E /* AZScrollPaneLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = A551670E0D7DDE69006CAC05 /* AZScrollPaneLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B14F1D415FFE18600CBBF7E /* AZScrollPaneLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167130D7DDE69006CAC05 /* AZScrollPaneLayer.m */; };
+		7B14F1D515FFE18600CBBF7E /* AZScrollerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = A55167160D7DDE69006CAC05 /* AZScrollerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B14F1D615FFE18600CBBF7E /* AZScrollerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167150D7DDE69006CAC05 /* AZScrollerLayer.m */; };
+		7B14F1D715FFE1B500CBBF7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EEB15CCC58B00DCC82D /* QuartzCore.framework */; };
+		7B14F1D815FFE1C600CBBF7E /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE315CCC53C00DCC82D /* AtoZ.framework */; };
+		7B14F42B1600688F00CBBF7E /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B14F4271600688F00CBBF7E /* DrawView.m */; };
+		7B14F42D1600688F00CBBF7E /* MagnifierView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B14F4291600688F00CBBF7E /* MagnifierView.m */; };
+		7B14F42E160068DE00CBBF7E /* AZCoreScroll.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B14F1BC15FFDFCD00CBBF7E /* AZCoreScroll.framework */; };
+		7B14F434160069C800CBBF7E /* AZCoreScroll.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B14F1BC15FFDFCD00CBBF7E /* AZCoreScroll.framework */; };
+		7B14F43616006AB800CBBF7E /* AZCoreScroll.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B14F1C515FFDFCE00CBBF7E /* AZCoreScroll.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B183EF415CCC75300DCC82D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EF315CCC75300DCC82D /* Cocoa.framework */; };
 		7B183EFA15CCC75300DCC82D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B183EF815CCC75300DCC82D /* InfoPlist.strings */; };
 		7B183EFC15CCC75300DCC82D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B183EFB15CCC75300DCC82D /* main.m */; };
 		7B183F0015CCC75300DCC82D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B183EFE15CCC75300DCC82D /* Credits.rtf */; };
 		7B183F0315CCC75300DCC82D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B183F0215CCC75300DCC82D /* AppDelegate.m */; };
 		7B183F0615CCC75400DCC82D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B183F0415CCC75400DCC82D /* MainMenu.xib */; };
-		7B183F0A15CCC77200DCC82D /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167020D7DDCF4006CAC05 /* CustomView.m */; };
-		7B183F0B15CCC77200DCC82D /* SFTimeLineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */; };
-		7B183F0C15CCC77200DCC82D /* SFSnapShotLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */; };
-		7B183F0D15CCC77200DCC82D /* SFScrollPaneLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */; };
-		7B183F0E15CCC77200DCC82D /* SFScrollerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */; };
-		7B183F0F15CCC77200DCC82D /* MiscUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A551671E0D7DDEDE006CAC05 /* MiscUtils.m */; };
 		7B183F1115CCC7A400DCC82D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EEB15CCC58B00DCC82D /* QuartzCore.framework */; };
 		7B183F1215CCC7A400DCC82D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE915CCC58200DCC82D /* Foundation.framework */; };
 		7B183F1315CCC7A400DCC82D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE715CCC57600DCC82D /* CoreFoundation.framework */; };
 		7B183F1415CCC7A400DCC82D /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE515CCC56300DCC82D /* ApplicationServices.framework */; };
 		7B23C36A15CE9B7E00DD1A9C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B23C36915CE9B7E00DD1A9C /* WebKit.framework */; };
 		7BB24EBD15CD64F500A54017 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B183EE315CCC53C00DCC82D /* AtoZ.framework */; };
+		7BF93E7015FF588600211769 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF93E6F15FF588600211769 /* CoreText.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7B14F431160069B200CBBF7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B14F1BB15FFDFCD00CBBF7E;
+			remoteInfo = AZCoreScroll;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7B14F433160069B600CBBF7E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7B14F434160069C800CBBF7E /* AZCoreScroll.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -36,6 +75,16 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* CoreScroll_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreScroll_Prefix.pch; sourceTree = "<group>"; };
+		7B14F1BC15FFDFCD00CBBF7E /* AZCoreScroll.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AZCoreScroll.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B14F1C015FFDFCE00CBBF7E /* AZCoreScroll-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AZCoreScroll-Info.plist"; sourceTree = "<group>"; };
+		7B14F1C215FFDFCE00CBBF7E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B14F1C415FFDFCE00CBBF7E /* AZCoreScroll-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AZCoreScroll-Prefix.pch"; sourceTree = "<group>"; };
+		7B14F1C515FFDFCE00CBBF7E /* AZCoreScroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AZCoreScroll.h; sourceTree = "<group>"; };
+		7B14F1C615FFDFCE00CBBF7E /* AZCoreScroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AZCoreScroll.m; sourceTree = "<group>"; };
+		7B14F4261600688F00CBBF7E /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = DrawView.h; sourceTree = "<group>"; };
+		7B14F4271600688F00CBBF7E /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawView.m; sourceTree = "<group>"; };
+		7B14F4281600688F00CBBF7E /* MagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MagnifierView.h; sourceTree = "<group>"; };
+		7B14F4291600688F00CBBF7E /* MagnifierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagnifierView.m; sourceTree = "<group>"; };
 		7B183EE315CCC53C00DCC82D /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = "../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework"; sourceTree = "<group>"; };
 		7B183EE515CCC56300DCC82D /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		7B183EE715CCC57600DCC82D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -52,28 +101,41 @@
 		7B183F0215CCC75300DCC82D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7B183F0515CCC75400DCC82D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7B23C36915CE9B7E00DD1A9C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		7BF93E6F15FF588600211769 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A55167010D7DDCF4006CAC05 /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
-		A55167020D7DDCF4006CAC05 /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
+		A55167010D7DDCF4006CAC05 /* AZCoreScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCoreScrollView.h; sourceTree = "<group>"; };
+		A55167020D7DDCF4006CAC05 /* AZCoreScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZCoreScrollView.m; sourceTree = "<group>"; };
 		A55167050D7DDDE4006CAC05 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		A551670E0D7DDE69006CAC05 /* SFScrollPaneLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFScrollPaneLayer.h; sourceTree = "<group>"; };
-		A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTimeLineLayout.m; sourceTree = "<group>"; };
-		A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSnapShotLayer.m; sourceTree = "<group>"; };
-		A55167110D7DDE69006CAC05 /* SFSnapShotLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSnapShotLayer.h; sourceTree = "<group>"; };
-		A55167120D7DDE69006CAC05 /* SFTimeLineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTimeLineLayout.h; sourceTree = "<group>"; };
-		A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFScrollPaneLayer.m; sourceTree = "<group>"; };
-		A55167140D7DDE69006CAC05 /* SFScrollerProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFScrollerProtocols.h; sourceTree = "<group>"; };
-		A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFScrollerLayer.m; sourceTree = "<group>"; };
-		A55167160D7DDE69006CAC05 /* SFScrollerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFScrollerLayer.h; sourceTree = "<group>"; };
+		A551670E0D7DDE69006CAC05 /* AZScrollPaneLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZScrollPaneLayer.h; sourceTree = "<group>"; };
+		A551670F0D7DDE69006CAC05 /* AZTimeLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTimeLineLayout.m; sourceTree = "<group>"; };
+		A55167100D7DDE69006CAC05 /* AZSnapShotLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSnapShotLayer.m; sourceTree = "<group>"; };
+		A55167110D7DDE69006CAC05 /* AZSnapShotLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZSnapShotLayer.h; sourceTree = "<group>"; };
+		A55167120D7DDE69006CAC05 /* AZTimeLineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZTimeLineLayout.h; sourceTree = "<group>"; };
+		A55167130D7DDE69006CAC05 /* AZScrollPaneLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZScrollPaneLayer.m; sourceTree = "<group>"; };
+		A55167140D7DDE69006CAC05 /* AZScrollerProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZScrollerProtocols.h; sourceTree = "<group>"; };
+		A55167150D7DDE69006CAC05 /* AZScrollerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZScrollerLayer.m; sourceTree = "<group>"; };
+		A55167160D7DDE69006CAC05 /* AZScrollerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZScrollerLayer.h; sourceTree = "<group>"; };
 		A551671D0D7DDEDE006CAC05 /* MiscUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiscUtils.h; sourceTree = "<group>"; };
 		A551671E0D7DDEDE006CAC05 /* MiscUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiscUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7B14F1B815FFDFCD00CBBF7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B14F1D715FFE1B500CBBF7E /* QuartzCore.framework in Frameworks */,
+				7B14F1BD15FFDFCD00CBBF7E /* Cocoa.framework in Frameworks */,
+				7B14F1D815FFE1C600CBBF7E /* AtoZ.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B183EEE15CCC75300DCC82D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B14F42E160068DE00CBBF7E /* AZCoreScroll.framework in Frameworks */,
+				7BF93E7015FF588600211769 /* CoreText.framework in Frameworks */,
 				7B23C36A15CE9B7E00DD1A9C /* WebKit.framework in Frameworks */,
 				7BB24EBD15CD64F500A54017 /* AtoZ.framework in Frameworks */,
 				7B183EF415CCC75300DCC82D /* Cocoa.framework in Frameworks */,
@@ -90,21 +152,22 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A55167010D7DDCF4006CAC05 /* CustomView.h */,
-				A55167020D7DDCF4006CAC05 /* CustomView.m */,
-				A55167120D7DDE69006CAC05 /* SFTimeLineLayout.h */,
-				A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */,
-				A55167110D7DDE69006CAC05 /* SFSnapShotLayer.h */,
-				A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */,
-				A55167140D7DDE69006CAC05 /* SFScrollerProtocols.h */,
-				A551670E0D7DDE69006CAC05 /* SFScrollPaneLayer.h */,
-				A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */,
-				A55167160D7DDE69006CAC05 /* SFScrollerLayer.h */,
-				A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */,
+				A55167010D7DDCF4006CAC05 /* AZCoreScrollView.h */,
+				A55167020D7DDCF4006CAC05 /* AZCoreScrollView.m */,
+				A55167120D7DDE69006CAC05 /* AZTimeLineLayout.h */,
+				A551670F0D7DDE69006CAC05 /* AZTimeLineLayout.m */,
+				A55167110D7DDE69006CAC05 /* AZSnapShotLayer.h */,
+				A55167100D7DDE69006CAC05 /* AZSnapShotLayer.m */,
+				A55167140D7DDE69006CAC05 /* AZScrollerProtocols.h */,
+				A551670E0D7DDE69006CAC05 /* AZScrollPaneLayer.h */,
+				A55167130D7DDE69006CAC05 /* AZScrollPaneLayer.m */,
+				A55167160D7DDE69006CAC05 /* AZScrollerLayer.h */,
+				A55167150D7DDE69006CAC05 /* AZScrollerLayer.m */,
 				A551671D0D7DDEDE006CAC05 /* MiscUtils.h */,
 				A551671E0D7DDEDE006CAC05 /* MiscUtils.m */,
 			);
 			name = Classes;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -130,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				7B183EF115CCC75300DCC82D /* CoreScroll.app */,
+				7B14F1BC15FFDFCD00CBBF7E /* AZCoreScroll.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,11 +201,12 @@
 		29B97314FDCFA39411CA2CEA /* CAiTunesScroller */ = {
 			isa = PBXGroup;
 			children = (
+				7BF93E6F15FF588600211769 /* CoreText.framework */,
 				7B23C36915CE9B7E00DD1A9C /* WebKit.framework */,
-				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				7B183EF515CCC75300DCC82D /* CoreScroll */,
+				7B14F1BE15FFDFCE00CBBF7E /* AZCoreScroll */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -182,6 +247,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7B14F1BE15FFDFCE00CBBF7E /* AZCoreScroll */ = {
+			isa = PBXGroup;
+			children = (
+				7B14F1C515FFDFCE00CBBF7E /* AZCoreScroll.h */,
+				7B14F1C615FFDFCE00CBBF7E /* AZCoreScroll.m */,
+				7B14F4271600688F00CBBF7E /* DrawView.m */,
+				7B14F4261600688F00CBBF7E /* DrawView.h */,
+				7B14F4281600688F00CBBF7E /* MagnifierView.h */,
+				7B14F4291600688F00CBBF7E /* MagnifierView.m */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				7B14F1BF15FFDFCE00CBBF7E /* Supporting Files */,
+			);
+			path = AZCoreScroll;
+			sourceTree = "<group>";
+		};
+		7B14F1BF15FFDFCE00CBBF7E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B14F1C015FFDFCE00CBBF7E /* AZCoreScroll-Info.plist */,
+				7B14F1C115FFDFCE00CBBF7E /* InfoPlist.strings */,
+				7B14F1C415FFDFCE00CBBF7E /* AZCoreScroll-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7B183EF515CCC75300DCC82D /* CoreScroll */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,7 +297,42 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		7B14F1B915FFDFCD00CBBF7E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B14F1CC15FFE18600CBBF7E /* AZCoreScrollView.h in Headers */,
+				7B14F1CE15FFE18600CBBF7E /* AZTimeLineLayout.h in Headers */,
+				7B14F1D015FFE18600CBBF7E /* AZSnapShotLayer.h in Headers */,
+				7B14F1D215FFE18600CBBF7E /* AZScrollerProtocols.h in Headers */,
+				7B14F43616006AB800CBBF7E /* AZCoreScroll.h in Headers */,
+				7B14F1D315FFE18600CBBF7E /* AZScrollPaneLayer.h in Headers */,
+				7B14F1D515FFE18600CBBF7E /* AZScrollerLayer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		7B14F1BB15FFDFCD00CBBF7E /* AZCoreScroll */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B14F1CA15FFDFCE00CBBF7E /* Build configuration list for PBXNativeTarget "AZCoreScroll" */;
+			buildPhases = (
+				7B14F1B715FFDFCD00CBBF7E /* Sources */,
+				7B14F1B815FFDFCD00CBBF7E /* Frameworks */,
+				7B14F1B915FFDFCD00CBBF7E /* Headers */,
+				7B14F1BA15FFDFCD00CBBF7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AZCoreScroll;
+			productName = AZCoreScroll;
+			productReference = 7B14F1BC15FFDFCD00CBBF7E /* AZCoreScroll.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		7B183EF015CCC75300DCC82D /* CoreScroll */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B183F0715CCC75400DCC82D /* Build configuration list for PBXNativeTarget "CoreScroll" */;
@@ -215,10 +340,12 @@
 				7B183EED15CCC75300DCC82D /* Sources */,
 				7B183EEE15CCC75300DCC82D /* Frameworks */,
 				7B183EEF15CCC75300DCC82D /* Resources */,
+				7B14F433160069B600CBBF7E /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7B14F432160069B200CBBF7E /* PBXTargetDependency */,
 			);
 			name = CoreScroll;
 			productName = CoreScroll;
@@ -245,11 +372,20 @@
 			projectRoot = "";
 			targets = (
 				7B183EF015CCC75300DCC82D /* CoreScroll */,
+				7B14F1BB15FFDFCD00CBBF7E /* AZCoreScroll */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7B14F1BA15FFDFCD00CBBF7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B14F1C315FFDFCE00CBBF7E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B183EEF15CCC75300DCC82D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,22 +399,39 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7B14F1B715FFDFCD00CBBF7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B14F1C715FFDFCE00CBBF7E /* AZCoreScroll.m in Sources */,
+				7B14F1CD15FFE18600CBBF7E /* AZCoreScrollView.m in Sources */,
+				7B14F1CF15FFE18600CBBF7E /* AZTimeLineLayout.m in Sources */,
+				7B14F1D115FFE18600CBBF7E /* AZSnapShotLayer.m in Sources */,
+				7B14F1D415FFE18600CBBF7E /* AZScrollPaneLayer.m in Sources */,
+				7B14F1D615FFE18600CBBF7E /* AZScrollerLayer.m in Sources */,
+				7B14F42B1600688F00CBBF7E /* DrawView.m in Sources */,
+				7B14F42D1600688F00CBBF7E /* MagnifierView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B183EED15CCC75300DCC82D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7B183EFC15CCC75300DCC82D /* main.m in Sources */,
 				7B183F0315CCC75300DCC82D /* AppDelegate.m in Sources */,
-				7B183F0A15CCC77200DCC82D /* CustomView.m in Sources */,
-				7B183F0B15CCC77200DCC82D /* SFTimeLineLayout.m in Sources */,
-				7B183F0C15CCC77200DCC82D /* SFSnapShotLayer.m in Sources */,
-				7B183F0D15CCC77200DCC82D /* SFScrollPaneLayer.m in Sources */,
-				7B183F0E15CCC77200DCC82D /* SFScrollerLayer.m in Sources */,
-				7B183F0F15CCC77200DCC82D /* MiscUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7B14F432160069B200CBBF7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B14F1BB15FFDFCD00CBBF7E /* AZCoreScroll */;
+			targetProxy = 7B14F431160069B200CBBF7E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -295,6 +448,14 @@
 				29B97319FDCFA39411CA2CEA /* English */,
 			);
 			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+		7B14F1C115FFDFCE00CBBF7E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B14F1C215FFDFCE00CBBF7E /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		7B183EF815CCC75300DCC82D /* InfoPlist.strings */ = {
@@ -324,6 +485,81 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7B14F1C815FFDFCE00CBBF7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZCoreScroll/AZCoreScroll-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "AZCoreScroll/AZCoreScroll-Info.plist";
+				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		7B14F1C915FFDFCE00CBBF7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../disenchanted 750/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AZCoreScroll/AZCoreScroll-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "AZCoreScroll/AZCoreScroll-Info.plist";
+				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
 		7B183F0815CCC75400DCC82D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -353,6 +589,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "CoreScroll/CoreScroll-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -387,6 +624,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "CoreScroll/CoreScroll-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = (
 					"-framework",
@@ -422,6 +660,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B14F1CA15FFDFCE00CBBF7E /* Build configuration list for PBXNativeTarget "AZCoreScroll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B14F1C815FFDFCE00CBBF7E /* Debug */,
+				7B14F1C915FFDFCE00CBBF7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7B183F0715CCC75400DCC82D /* Build configuration list for PBXNativeTarget "CoreScroll" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
