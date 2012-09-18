@@ -15,12 +15,12 @@
 - (void) awakeFromNib {
 	[[NSNotificationCenter defaultCenter] addObserver:self forKeyPath:AtoZSharedInstanceUpdated];
 	NSLog(@"Has shared? \"%@\"", StringFromBOOL([AtoZ hasSharedInstance]));
-	NSLog(@"%@",[[AtoZ dockSorted] valueForKeyPath:@"name"] );
+//	NSLog(@"%@",[[AtoZ dockSorted] valueForKeyPath:@"name"] );
 	NSLog(@"Has shared? \"%@\"", StringFromBOOL([AtoZ hasSharedInstance]));
 
-	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
-	AZLOG(web);
-	[web saveAs:@"/Users/localadmin/Desktop/google.png"];
+//	NSImage *web = [NSImage imageFromWebPageAtURL:[NSURL URLWithString:@"http://google.com"] encoding:NSUTF8StringEncoding];
+//	AZLOG(web);
+//	[web saveAs:@"/Users/localadmin/Desktop/google.png"];
 }
 
 -(void) didChangeValueForKeyP:(NSString *)key {
