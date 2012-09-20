@@ -1,6 +1,6 @@
 #import "AZScrollerLayer.h"
 //#import "MiscUtils.h"
-#import <AtoZ/AtoZ.h>
+#import <AtoZ/AtoZFunctions.h>
 
 #define BORDERWIDTH 0.0
 #define ARROW_WIDTH 46.0

@@ -1,22 +1,29 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
-#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>
+#import "AZSnapShotLayer.h"
+#import <AtoZ/AtoZFunctions.h>
+
+
+typedef enum  {
+	AZAdobeInitals,
+	AZAppleFlip
+} 	AZDisplayMode;
 
 @interface AZSnapShotLayer : CALayer
 
-+ (AZSnapShotLayer*)rootSnapshot;
++ (AZSnapShotLayer*) rootSnapshot;
++ (AZSnapShotLayer*) rootSnapWithFile:(AZFile *)file andDisplayMode:(AZDisplayMode)style;
 
-//@property (nonatomic, retain) CALayer* rootLayer;
-@property (nonatomic, retain) CATransformLayer* trannyLayer;
-@property (nonatomic, retain) CAConstraintLayoutManager* constrainLayer;
+@property (nonatomic, retain) CATransformLayer				*trannyLayer;
+@property (nonatomic, retain) CAConstraintLayoutManager		*constrainLayer;
 
-@property (nonatomic, retain) CALayer* contentLayer;
-@property (nonatomic, retain) CATextLayer* labelLayer;
-@property (nonatomic, retain) CALayer* gradLayer;
-@property (nonatomic, retain) CALayer* imageLayer;
-@property (nonatomic, assign) BOOL selected;
+@property (nonatomic, retain) CALayer		*contentLayer, *gradLayer, 	*imageLayer;;
+@property (nonatomic, retain) CATextLayer	*labelLayer;
 
+@property (nonatomic, assign) BOOL 			selected;
+@property (nonatomic, assign) AZDisplayMode mode;
 
 @property (nonatomic, retain) id objectRep;
 

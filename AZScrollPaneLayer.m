@@ -84,8 +84,8 @@
 	boundsAnimation.duration=duration;
 	boundsAnimation.repeatCount=1;
 	boundsAnimation.autoreverses=YES;
-	boundsAnimation.fromValue= [NSValue valueWithRect:convertToNSRect(currentBounds)];
-	boundsAnimation.toValue=[NSValue valueWithRect:convertToNSRect(newBounds)];
+	boundsAnimation.fromValue= AZVrect(currentBounds);
+	boundsAnimation.toValue = AZVrect(newBounds);
 	[layer addAnimation:boundsAnimation forKey:@"animateBounds"];
 
 
@@ -98,8 +98,8 @@
 	positionAnimation.duration=duration;
 	positionAnimation.repeatCount=1;
 	positionAnimation.autoreverses=YES;
-	positionAnimation.fromValue= [NSValue valueWithPoint:convertToNSPoint(layer.frame.origin)];
-	positionAnimation.toValue=[NSValue valueWithPoint:animationOrigin];
+	positionAnimation.fromValue= AZVpoint(layer.frame.origin);
+	positionAnimation.toValue= AZVpoint(animationOrigin);
 	[layer addAnimation:positionAnimation forKey:@"animatePosition"];
 
 }

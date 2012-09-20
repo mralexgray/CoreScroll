@@ -17,9 +17,9 @@
 
 #import "AZScrollerLayer.h"
 
-#import "DrawView.h"
+//#import "DrawView.h"
 
-#import "MagnifierView.h"
+//#import "MagnifierView.h"
 
 @interface AZCoreScroll : NSObject
 

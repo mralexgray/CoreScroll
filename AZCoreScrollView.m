@@ -5,108 +5,68 @@
 #import "AZScrollPaneLayer.h"
 #import "AZScrollerLayer.h"
 
-//#import "MiscUtils.h"
+//#import	<AtoZ/AtoZ.h>
+
 
 #define SFLeftArrowKey 123
 #define SFRightArrowKey 124
 #define SHIFT_ANIM_SPEED 2.0f
 
 
-//@interface CustomView (PrivateMethods)
-//- (void)setupLayers;
-//- (void)setupListeners;
-//- (void)moveSelection:(NSInteger)dx;
-//@end
+@interface AZCoreScrollView ()							//@private
+@property (nonatomic, retain) NSGradient				* bgGradient;
+@property (nonatomic, assign) AZTimeLineViewEventType 	currentMouseEventType;
+@end
 
 @implementation AZCoreScrollView
 
-//- (void) debugLayers:(NSArray*)layers{
-//	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
-//		obj.borderColor = cgRANDOMCOLOR;
-//		obj.borderWidth = RAND_FLOAT_VAL(3,8);
-//	}];
-//}
-
-- (void)awakeFromNib {								if (1)	 [[NSLogConsole sharedConsole] open];
-	/* draw a basic gradient for view background*/
-	_bgGradient = [[NSGradient alloc] initWithStartingColor:GRAY1	endingColor:GRAY3];
-	[self setupLayers];
-	[self setupListeners];
+- (void)awakeFromNib {				/* draw a basic gradient for view background*/
+	_bgGradient = [[NSGradient alloc] initWithStartingColor:GRAY1 endingColor:GRAY3];
+	[self setupLayers];										   [self setupListeners];
 }
-
-- (void)debugLayers:(NSArray*)layers {
-
-	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
-		obj.borderWidth = 4;
-		obj.borderColor =	( [obj isEqualTo:_mainLayer] ? cgRED :
-							( [obj isEqualTo:_bodyLayer] ? cgPURPLE :
-							 ( [obj isEqualTo:_scrollerLayer] ? cgGREEN : GRAY2.CGColor)));
-		NSDictionary* textStyle = @{@"Ubuntu Mono Bold" : @"font", kCAAlignmentCenter : @"alignmentMode"};
-		CATextLayer* labelLayer = [CATextLayer layer];
-		labelLayer.fontSize = 10;
-		labelLayer.frame = obj.bounds;
-		labelLayer.style = textStyle;
-		labelLayer.foregroundColor =	cgWHITE;
-		//		labelLayer.position = CGPointMake(0,0);
-		//		labelLayer.anchorPoint = CGPointMake(0,0);
-		[obj addSublayer:labelLayer];	//AZCenterOfRect(contentLayer.bounds);
-		labelLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-	}];
-}
-
 - (void)setupLayers {
-	//	CGRect viewFrame = NSRectToCGRect( self.frame );
-	//	viewFrame.origin.y = 0;
-
-	_mainLayer = [CALayer layer];
-	self.layer = _mainLayer;
-	self.wantsLayer = YES;															// create a layer and match its frame to the view's frame
-	_mainLayer.name = @"mainLayer";
-	_mainLayer.frame = [self bounds];
-	_mainLayer.delegate = self;
-	// causes the layer content to be drawn in -drawRect:
-	[_mainLayer setNeedsDisplay];
-
-	CGFloat midX = CGRectGetMidX( _mainLayer.frame );
-	CGFloat midY = CGRectGetMidY( _mainLayer.frame );
-
+	//	CGRect viewFrame = NSRectToCGRect( self.frame );		//	viewFrame.origin.y = 0;
+	self.mainLayer 		= [CALayer layer];
+	self.layer 			= _mainLayer;
+	self.wantsLayer 	= YES;
+	_mainLayer.name 	= @"mainLayer";
+	_mainLayer.frame 	= [self bounds];
+	_mainLayer.delegate = self;					[_mainLayer setNeedsDisplay];
+												// causes the layer content to be drawn in -drawRect:
 	// create a "container" layer for all content layers same frame as the view's master layer, automatically resizes as necessary.
-	CALayer* contentContainer = [CALayer layer];
-	contentContainer.bounds = _mainLayer.bounds;
-	contentContainer.delegate = self;
-	contentContainer.anchorPoint= CGPointMake(0.5,0.5);
-	contentContainer.position = CGPointMake( midX, midY );
+	CALayer* contentContainer 	= [CALayer layer];
+	contentContainer.frame 		= self.bounds;
+	contentContainer.delegate 	= self;
+//	contentContainer.anchorPoint= CGPointMake(0.5,0.5);
+//	contentContainer.position 	= self.center;
 	contentContainer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	[contentContainer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	[self.layer addSublayer:contentContainer];
 
 	_bodyLayer 					= [AZScrollPaneLayer layer];
-	_bodyLayer.name 				= @"scrollLayer";
+	_bodyLayer.name 			= @"scrollLayer";
 	_bodyLayer.scrollMode 		= kCAScrollBoth;//	kCAScrollHorizontally;
-	_bodyLayer.layoutManager 		= [AZTimeLineLayout layoutManager];
-	_bodyLayer.constraints		= @[	AZConstRelSuper ( kCAConstraintMinX),
-	 	 								AZConstRelSuper ( kCAConstraintMaxX),
+	_bodyLayer.layoutManager 	= [AZTimeLineLayout layoutManager];
+	_bodyLayer.constraints		= @[	AZConstRelSuper ( kCAConstraintMinX ),
+	 	 								AZConstRelSuper ( kCAConstraintMaxX ),
+										AZConstRelSuperScaleOff( kCAConstraintMaxY,   .8, 0	),
+										AZConstRelSuperScaleOff( kCAConstraintHeight, .8, 0	) ];
 
-										AZConstRelSuperScaleOff( kCAConstraintMaxY, 	.8,	0	),
-										AZConstRelSuperScaleOff( kCAConstraintHeight, 	.8,	 0	) ];
-										//	 	AZConstRelSuper ( kCAConstraintMaxX),
-										//		AZConstRelSuper ( kCAConstraintMinY),
-										//		AZConstRelSuper ( kCAConstraintMaxX),
-										//	 AZConstRelSuperScaleOff( kCAConstraintWidth, 	1,	 0	),	//-20
-										 //	 	AZConstRelSuperScaleOff( kCAConstraintMinY,		.2,	0	),
-
-//	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"scroller" attribute:kCAConstraintMaxY offset:10]];
 	// TODO -- SFScrollLayer -- has reference to site and listens for change methods
 	_scrollerLayer 				 = [AZScrollerLayer layer];
 	_scrollerLayer.name 			 = @"scroller";
-	_scrollerLayer.constraints	=	@[	 //		AZConstRelSuperScaleOff( kCAConstraintMinY, 		1, 	40	),
-										 AZConstRelSuper(kCAConstraintMaxX),
-										 AZConstRelSuper(kCAConstraintMinX),
-										 AZConstRelSuper(kCAConstraintWidth),
-										 AZConstAttrRelNameAttrScaleOff(kCAConstraintMaxY, @"superlayer", kCAConstraintMaxY, 1, 0),
-										AZConstAttrRelNameAttrScaleOff(kCAConstraintMinY, @"superlayer", kCAConstraintMaxY, .8, 1),
+	_scrollerLayer.constraints	=	@[				AZConstRelSuper(kCAConstraintMaxX),
+			AZConstRelSuper(kCAConstraintMinX),		AZConstRelSuper(kCAConstraintWidth),
+			AZConstAttrRelNameAttrScaleOff(kCAConstraintMaxY, 	@"superlayer", kCAConstraintMaxY,   1, 0),
+			AZConstAttrRelNameAttrScaleOff(kCAConstraintMinY, 	@"superlayer", kCAConstraintMaxY,  .8, 1),
+			AZConstAttrRelNameAttrScaleOff(kCAConstraintHeight, @"superlayer", kCAConstraintHeight,.2, 0) ];
 
-									AZConstAttrRelNameAttrScaleOff(kCAConstraintHeight, @"superlayer",kCAConstraintHeight, .2,0)];//
+
+//		AZConstRelSuperScaleOff( kCAConstraintMinY, 		1, 	40	),
+// AZConstRelSuper ( kCAConstraintMaxX), AZConstRelSuper ( kCAConstraintMinY),
+// AZConstRelSuper ( kCAConstraintMaxX), AZConstRelSuperScaleOff( kCAConstraintWidth, 	1,	 0	),	//-20
+// AZConstRelSuperScaleOff( kCAConstraintMinY,		.2,	0	),
+//	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"scroller" attribute:kCAConstraintMaxY offset:10]];
 //										 AZConstRelSuper(kCAConstraintMaxY),
 //										 AZConstRelSuperScaleOff(kCAConstraintHeight, , 0)	];
 	//		[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer"
@@ -114,10 +74,7 @@
 
 	for (AZFile* i in [[AtoZ dock]sortedWithKey:@"hue" ascending:YES]){
 
-		AZSnapShotLayer *d = [AZSnapShotLayer rootSnapshot];
-		d.objectRep = i;
-		d.contentLayer.backgroundColor = i.color.cgColor;
-
+		AZSnapShotLayer *d = [AZSnapShotLayer rootSnapWithFile:i andDisplayMode:AZAdobeInitals];
 		NSLog(@"Snapclass: %@ .	Assigned color:%@	Was null: %@.", d.propertiesPlease, 		d.contentLayer.backgroundColor, StringFromBOOL(i.color));
 		[_bodyLayer addSublayer:d];
 	}
@@ -181,23 +138,22 @@
 - (void) mouseDown: (NSEvent *) event {
 	NSPoint location = [self convertPoint:[event locationInWindow] fromView:nil];
 	CGPoint cgLocation = NSPointToCGPoint(location);
+	NSPoint mD = [NSScreen convertAndFlipEventPoint:event relativeToView:self];
 
 	if ([event modifierFlags] & (NSAlphaShiftKeyMask|NSShiftKeyMask))
 		[CATransaction setValue:@SHIFT_ANIM_SPEED forKey:@"animationDuration"];
 
 
-	if ( CGRectContainsPoint ( _bodyLayer.frame, cgLocation )) {
+	else if ( CGRectContainsPoint ( _bodyLayer.frame, cgLocation )) {
 		[_bodyLayer mouseDownAtPointInSuperlayer:cgLocation];
-		return;
 	}
 
-	if ( CGRectContainsPoint ( _scrollerLayer.frame, cgLocation ) ) {
-		if( [_scrollerLayer mouseDownAtPointInSuperlayer:cgLocation] ) {
+	else if ( CGRectContainsPoint ( _scrollerLayer.frame, cgLocation ) ) {
+		if ( [_scrollerLayer mouseDownAtPointInSuperlayer:cgLocation] ) {
 			_currentMouseEventType = AZTimeLineViewNotifyScrollerEventType;
 		}
-		return;
 	}
-
+	PoofAtPoint(mD, 222);
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
@@ -250,4 +206,38 @@
 }
 
 
+
+- (void)debugLayers:(NSArray*)layers {
+
+	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
+		obj.borderWidth = 4;
+		obj.borderColor =	( [obj isEqualTo:_mainLayer] ? cgRED :
+							 ( [obj isEqualTo:_bodyLayer] ? cgPURPLE :
+							  ( [obj isEqualTo:_scrollerLayer] ? cgGREEN : GRAY2.CGColor)));
+		NSDictionary* textStyle = @{@"Ubuntu Mono Bold" : @"font", kCAAlignmentCenter : @"alignmentMode"};
+		CATextLayer* labelLayer = [CATextLayer layer];
+		labelLayer.fontSize = 10;
+		labelLayer.frame = obj.bounds;
+		labelLayer.style = textStyle;
+		labelLayer.foregroundColor =	cgWHITE;
+			//		labelLayer.position = CGPointMake(0,0);
+			//		labelLayer.anchorPoint = CGPointMake(0,0);
+		[obj addSublayer:labelLayer];	//AZCenterOfRect(contentLayer.bounds);
+		labelLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+	}];
+}
+
 @end
+	//@interface CustomView (PrivateMethods)
+	//- (void)setupLayers;
+	//- (void)setupListeners;
+	//- (void)moveSelection:(NSInteger)dx;
+	//@end
+
+	//- (void) debugLayers:(NSArray*)layers{
+		/*	1=open, 0=closed  */				//if (0)	 [[NSLogConsole sharedConsole] open];
+	//	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
+	//		obj.borderColor = cgRANDOMCOLOR;
+	//		obj.borderWidth = RAND_FLOAT_VAL(3,8);
+	//	}];
+	//}

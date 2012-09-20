@@ -8,12 +8,12 @@
 
 #import "AppDelegate.h"
 #import <AtoZ/AtoZ.h>
-#import <AZCoreScroll/AZCoreScroll.h>
+//#import <AZCoreScroll/AZCoreScroll.h>
 
 @implementation AppDelegate
 
 - (void) awakeFromNib {
-	[[NSNotificationCenter defaultCenter] addObserver:self forKeyPath:AtoZSharedInstanceUpdated];
+	[NOTCENTER addObserver:self forKeyPath:AtoZSharedInstanceUpdated];
 	NSLog(@"Has shared? \"%@\"", StringFromBOOL([AtoZ hasSharedInstance]));
 //	NSLog(@"%@",[[AtoZ dockSorted] valueForKeyPath:@"name"] );
 	NSLog(@"Has shared? \"%@\"", StringFromBOOL([AtoZ hasSharedInstance]));

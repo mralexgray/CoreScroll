@@ -1,7 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
-#import	<AtoZ/AtoZ.h>
 
 @class AZScrollPaneLayer;
 @class AZScrollerLayer;
@@ -17,13 +16,10 @@ typedef enum {
 @interface AZCoreScrollView : NSView
 
 
-@property (nonatomic, retain) AZScrollPaneLayer *bodyLayer;
-@property (nonatomic, retain) AZScrollerLayer* scrollerLayer;
-@property (nonatomic, retain) CALayer* mainLayer;
+@property (nonatomic, retain) AZScrollPaneLayer * bodyLayer;
+@property (nonatomic, retain) AZScrollerLayer	* scrollerLayer;
+@property (nonatomic, retain) CALayer			* mainLayer;
 
-//@private
-@property (nonatomic, retain) NSGradient* bgGradient;
-@property (nonatomic, assign) AZTimeLineViewEventType currentMouseEventType;
 
 
 @end
