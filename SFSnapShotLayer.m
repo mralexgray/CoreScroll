@@ -26,13 +26,12 @@ static NSInteger snapshotNumber;
 	labelLayer.string = [NSString stringWithFormat:@"%li", (long)snapshotNumber];
 	labelLayer.fontSize = 24;
 	labelLayer.foregroundColor = SFWhiteColor;
-	labelLayer.font = @"Lucida Grande";
+	labelLayer.font = (CGFontRef)@"Lucida Grande";
 	[labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
 	[labelLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY]];
 	[contentLayer addSublayer:labelLayer];
 	[contentLayer setLabelLayer:labelLayer];
-	
-	[contentLayer autorelease];
+
 	return contentLayer;
 }
 - (void) setIsSelected:(BOOL)isSelected {

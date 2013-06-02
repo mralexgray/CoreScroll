@@ -13,7 +13,7 @@ typedef enum {	SFTimeLineViewUndefinedEventType = (1 << 1),
 } SFTimeLineViewEventType;
 
 @interface CustomView : NSView 
-@property	SFScrollPaneLayer *bodyLayer;
-@property	CALayer* rootBox;
-@property SFScrollerLayer* scrollerLayer;
+@property (strong)	SFScrollPaneLayer *bodyLayer;
+@property(strong)	CALayer* rootBox;
+@property (strong) SFScrollerLayer* scrollerLayer;
 @end

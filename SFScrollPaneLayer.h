@@ -11,7 +11,7 @@
 @interface SFScrollPaneLayer : CAScrollLayer < SFScrollerContent > 
 
 @property	     BOOL selectionAnim;
-@property     CGFloat contentWidth, visibleWidth, stepSize;
+@property (nonatomic)    CGFloat contentWidth, visibleWidth, stepSize;
 @property (assign) id <SFScrollerContentController> contentController;
 
 - (void)selectSnapShot:				  (NSInteger)index;

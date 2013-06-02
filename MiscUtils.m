@@ -14,7 +14,6 @@
 									operation:NSCompositeSourceOver fraction:1.0];
 	}
 	[cropImage unlockFocus];
-	[cropImage autorelease];
 	return cropImage;
 }
 + (NSRect) rectFromPointA:(NSPoint)pointA andPointB:(NSPoint)pointB {

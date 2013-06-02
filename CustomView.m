@@ -115,7 +115,7 @@
 	
 	// every app with eye candy needs a slow mode invoked by the shift key
 	if ([e modifierFlags] & (NSAlphaShiftKeyMask|NSShiftKeyMask))
-		[CATransaction setValue:[NSNumber numberWithFloat:SHIFT_ANIM_SPEED] forKey:@"animationDuration"];
+		[CATransaction setValue:@SHIFT_ANIM_SPEED forKey:@"animationDuration"];
 	
 	switch ([e keyCode])
 	{
@@ -134,7 +134,7 @@
 	NSPoint location = [self convertPoint:[event locationInWindow] fromView:nil];
 	CGPoint cgLocation = NSPointToCGPoint(location);
 	if ([event modifierFlags] & (NSAlphaShiftKeyMask|NSShiftKeyMask))
-		[CATransaction setValue:[NSNumber numberWithFloat:SHIFT_ANIM_SPEED] forKey:@"animationDuration"];
+		[CATransaction setValue:@SHIFT_ANIM_SPEED forKey:@"animationDuration"];
 	
 	if ( CGRectContainsPoint ( bodyLayer.frame, cgLocation )) {
 		[bodyLayer mouseDownAtPointInSuperlayer:cgLocation];
@@ -169,12 +169,12 @@
 #pragma mark -
 #pragma mark Listener Methods
 - (void) appNoLongerActive:(NSNotification*)notification {
-	[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	[scrollerLayer setOpacity:0.7];
 	[bodyLayer setOpacity:0.7];
 }
 - (void) appBecameActive:(NSNotification*)notification {
-	[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	[scrollerLayer setOpacity:1.0];
 	[bodyLayer setOpacity:1.0];
 }

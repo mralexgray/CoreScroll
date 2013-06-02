@@ -7,6 +7,6 @@
 #import <QuartzCore/QuartzCore.h>
 @interface SFSnapShotLayer : CALayer 
 + (SFSnapShotLayer*) rootSnapshot;
-@property(nonatomic) CATextLayer* labelLayer;
+@property(strong) CATextLayer* labelLayer;
 @property(nonatomic) BOOL isSelected;
 @end

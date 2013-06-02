@@ -5,6 +5,7 @@
  */
 #import "SFScrollerLayer.h"
 #import "MiscUtils.h"
+#import <AtoZ/AtoZ.h>
 #define BORDERWIDTH 1.0
 #define ARROW_WIDTH 26.0
 #define ARROWCOLOR 	CGColorCreateGenericRGB(0.0f,0.0f,0.0f,1.0f)
@@ -26,7 +27,6 @@
 - (NSImage*)createArrowMaskImageForPt:(NSPoint)pt1 pt2:(NSPoint)pt2 pt3:(NSPoint)pt3 pt4:(NSPoint)pt4 pt5:(NSPoint)pt5;
 // General Helper Methods
 - (void)addMask:(NSImage*)maskImage toLayer:(CALayer*)layerToMask;
-- (void)addContents:(NSImage*)contentsImage toLayer:(CALayer*)layer;
 - (NSImage*)createGlassImageForSize:(NSSize)size;
 // Slider Helper methods
 - (void)setSliderWidth:(CGFloat)width;
@@ -69,34 +69,21 @@
 - (void)setSliderWidth:(CGFloat)widthPercentage {
 	CGFloat trayWidth = tray.frame.size.width;
 	CGFloat newWidth = trayWidth * widthPercentage;
-	if ( newWidth < SLIDER_MIN_WIDTH ) {
-		newWidth = SLIDER_MIN_WIDTH;
-	}
+	newWidth = newWidth < SLIDER_MIN_WIDTH  ? SLIDER_MIN_WIDTH : newWidth;
 	CGRect oldFrame = slider.frame;
 	slider.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, newWidth, oldFrame.size.height); 
 }
 - (void)setSliderPosition:(CGFloat)xPosition {
 	CGRect frame = slider.frame;
 	CGFloat newX = xPosition;
-	if( newX < 0 ) {
-		newX = 0;
-	}
-	if( newX + frame.size.width > tray.frame.size.width ) {
-		newX = tray.frame.size.width - frame.size.width;
-	}
-	
+	newX = newX < 0 ? 0: newX + frame.size.width > tray.frame.size.width ? tray.frame.size.width - frame.size.width : newX;
 	slider.frame = CGRectMake(newX, frame.origin.y, frame.size.width, frame.size.height);
 }
 - (void)moveSlider:(CGFloat)dx {
 	CGFloat newX = slider.frame.origin.x + dx;
 	// Slider tracking should be immediate
-	[CATransaction begin];
-	{
-		[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
-		[self setSliderPosition:newX];		
-	}
-	[CATransaction commit];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.8] forKey:@"animationDuration"];
+	[CATransaction transactionWithLength:0 actions:^{	[self setSliderPosition:newX]; }];
+	[CATransaction setValue:@0.8f forKey:@"animationDuration"];
 	[_scrollerContent scrollToPosition: newX / tray.frame.size.width];
 }
 - (void) createScrollTray {
@@ -145,7 +132,7 @@
 	NSImage* rightImage = [MiscUtils cropImage:bgImage withRect:NSMakeRect(initialWidth - INNER_RADIUS, 0, INNER_RADIUS, sliderHeight)];
 	[bgImage release];
  
-	[self addContents:centreImage toLayer:middle];
+	middle.contents = centreImage;
 	[self setSliderSideLayer:leftSide contents:leftImage 
 										andPts:NSMakePoint (INNER_RADIUS, sliderHeight) 
 											 pt2:NSMakePoint (0, sliderHeight * 0.5) 
@@ -182,7 +169,7 @@
 		[path stroke];
 	}
 	[maskImage unlockFocus];
-	[self addContents:image toLayer:layer];
+	layer.contents = image;
 	[self addMask:maskImage toLayer:layer];
 	[maskImage release];
 	[image release];
@@ -285,7 +272,7 @@
 		[borderPath stroke];
 	}
 	[bgImage unlockFocus];
-	[self addContents:bgImage toLayer:arrowContent];
+	arrowContent.contents = bgImage;
 }
 - (NSBezierPath*) createArrowBorderPathWithPt:(NSPoint)pt1 pt2:(NSPoint)pt2 pt3:(NSPoint)pt3 {
 	NSBezierPath* borderPath = [NSBezierPath bezierPath];
@@ -323,7 +310,7 @@
 		[path stroke];
 	}
 	[maskImage unlockFocus];
-	[maskImage autorelease];
+
 	return maskImage;
 }
 #pragma mark -
@@ -365,9 +352,6 @@
 	}
 	[glassedImage unlockFocus];
 	
-	[topGlassGradient release];
-	[botGlassGradient release];
-	[glassedImage autorelease];
 	return glassedImage; 
 }
 - (void) addMask:(NSImage*)maskImage toLayer:(CALayer*)layer {	
@@ -378,17 +362,9 @@
 	maskLayer.frame = layer.frame;
 	maskLayer.position = CGPointMake(0, 0);
 	maskLayer.anchorPoint = CGPointMake(0,0);	
-	[maskLayer setContents:(id)maskRef];
+	[maskLayer setContents:maskImage];
 	[layer setMask:maskLayer];
 	CGImageRelease(maskRef);
-}
-- (void) addContents:(NSImage*)contentsImage toLayer:(CALayer*)layer {
-	CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)[contentsImage TIFFRepresentation], NULL);
-	CGImageRef bgRef =	CGImageSourceCreateImageAtIndex(source, 0, NULL);
-	CFRelease(source);
-	[layer setContents:(id)bgRef];
-	CGImageRelease(bgRef);
-	
 }
 #pragma mark -
 #pragma mark Event Methods
@@ -443,7 +419,7 @@
 	
 }
 - (BOOL)mouseDownAtPointInSuperlayer:(CGPoint)inputPoint {
-	[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	CGPoint point = [self convertPoint:inputPoint fromLayer:self.superlayer];
 	_mouseDownPointForCurrentEvent = point;
 	_mouseOverSelectedInput = YES;
@@ -501,7 +477,7 @@
 		_mouseDownPointForCurrentEvent = endPoint;
 		return;
 	}
-	[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	if ( _inputMode == SFLeftArrowInput ) {		
 		leftArrowHighlight.hidden = CGRectContainsPoint ( leftArrow.frame, point ) ? NO : YES;
 		_mouseOverSelectedInput = ! leftArrowHighlight.hidden;
@@ -513,7 +489,7 @@
 	
 }
 - (void)mouseUp:(CGPoint)inputPoint {
-	[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	leftArrowHighlight.hidden = YES;
 	rightArrowHighlight.hidden = YES;
 		
@@ -534,13 +510,13 @@
 	CGFloat newX = (tray.frame.size.width - slider.frame.size.width ) * percentage;
 	[CATransaction begin];
 	{
-		[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+		[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 		[self setSliderPosition:newX];		
 	}
 	[CATransaction commit];
 }
 - (void)scrollContentResized {
-	[CATransaction setValue:[NSNumber numberWithFloat:0] forKey:@"animationDuration"];
+	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
 	if ( !_scrollerContent || [_scrollerContent visibleWidth] >= [_scrollerContent contentWidth] ) {
 		self.hidden = YES;
 	} else {
