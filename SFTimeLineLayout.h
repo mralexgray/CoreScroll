@@ -1,4 +1,4 @@
-/*   
+/*	 
  Copyright (c) MMIIX, Matthieu Cormier
  All rights reserved.
 
@@ -6,10 +6,10 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 /* Layer attributes:
-    selectedSnapShot		NSNumber<int>
+		selectedSnapShot		NSNumber<int>
  
-  Sublayer attributes:
-    none 
+	Sublayer attributes:
+		none 
 */
 #define YMARGIN 30
 #define XMARGIN 30

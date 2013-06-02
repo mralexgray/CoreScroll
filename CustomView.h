@@ -1,4 +1,4 @@
-/*   
+/*	 
  Copyright (c) MMIIX, Matthieu Cormier
  All rights reserved.
 
@@ -8,19 +8,12 @@
 @class SFScrollPaneLayer;
 @class SFScrollerLayer;
 // used for mouse drag events
-typedef enum {
-	SFTimeLineViewUndefinedEventType = (1 << 1),
-	SFTimeLineViewNotifyScrollerEventType = (1 << 2),
+typedef enum {	SFTimeLineViewUndefinedEventType = (1 << 1),
+					SFTimeLineViewNotifyScrollerEventType = (1 << 2),
 } SFTimeLineViewEventType;
-@interface CustomView : NSView {
-	SFScrollPaneLayer *bodyLayer;
-  CALayer* rootBox;
-	SFScrollerLayer* scrollerLayer;
-	
-  
-@private
-  NSGradient* bgGradient;
-  SFTimeLineViewEventType _currentMouseEventType;
-	  
-}
+
+@interface CustomView : NSView 
+@property	SFScrollPaneLayer *bodyLayer;
+@property	CALayer* rootBox;
+@property SFScrollerLayer* scrollerLayer;
 @end
