@@ -5,17 +5,20 @@
  */
 #import "CustomView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SFSnapShotLayer.h"
-#import "SFTimeLineLayout.h"
-#import "SFScrollPaneLayer.h"
-#import "SFScrollerLayer.h"
+//#import "AZSnapShotLayer.h"
+//#import "AZTimeLineLayout.h"
+//#import "AZScrollPaneLayer.h"
+//#import "AZScrollerLayer.h"
+#import <AtoZ/AtoZ.h>
+
 #import "MiscUtils.h"
-#define SFLeftArrowKey 123
-#define SFRightArrowKey 124
+#define AZLeftArrowKey 123
+#define AZRightArrowKey 124
 #define SHIFT_ANIM_SPEED 2.0f
 @interface CustomView ()
 @property NSGradient* bgGradient;
-@property SFTimeLineViewEventType currentMouseEventType;
+@property AZTimeLineViewEventType currentMouseEventType;
+//AZTimeLineViewEventType currentMouseEventType;
 - (void)setupLayers;
 - (void)setupListeners;
 - (void)moveSelection:(NSInteger)dx;
@@ -60,27 +63,27 @@
 	[contentContainer setLayoutManager:[CAConstraintLayoutManager layoutManager]];		
 	[self.layer addSublayer:contentContainer];
 	
-	scrollerLayer = [SFScrollerLayer layer];
+	scrollerLayer = [AZScrollerLayer layer];
 	scrollerLayer.name = @"scroller";
 	[scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:10]];
 	[scrollerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMinY offset:10 + SCROLLER_HEIGHT]];
 	
-	bodyLayer = [SFScrollPaneLayer layer];
+	bodyLayer = [AZScrollPaneLayer layer];
 	bodyLayer.borderWidth = 0.0;
 	bodyLayer.name = @"scrollLayer";
 	bodyLayer.scrollMode = kCAScrollHorizontally;
 	bodyLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-	[bodyLayer setLayoutManager:[SFTimeLineLayout layoutManager]];
+	[bodyLayer setLayoutManager:[AZTimeLineLayout layoutManager]];
 	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
 	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth relativeTo:@"superlayer" attribute:kCAConstraintWidth offset:-20]];
 	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY relativeTo:@"scroller" attribute:kCAConstraintMaxY offset:10]];
 	[bodyLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY relativeTo:@"superlayer" attribute:kCAConstraintMaxY offset:-10]];
 	
 	
-	// TODO -- SFScrollLayer -- has reference to site and listens for change methods
+	// TODO -- AZScrollLayer -- has reference to site and listens for change methods
 	int i;
 	for ( i = 0; i < 200; i++ ) {
-		[bodyLayer addSublayer:[SFSnapShotLayer rootSnapshot]];
+		[bodyLayer addSublayer:[AZSnapShotLayer rootSnapshot]];
 	}	
 	
 	[scrollerLayer setScrollerContent:bodyLayer];
@@ -119,10 +122,10 @@
 	
 	switch ([e keyCode])
 	{
-		case SFLeftArrowKey:
+		case AZLeftArrowKey:
 			[self moveSelection:-1];
 			break;
-	case SFRightArrowKey:	
+	case AZRightArrowKey:	
 			[self moveSelection:+1];
 			break;
 		default:
@@ -142,7 +145,7 @@
 	}
 	if ( CGRectContainsPoint ( scrollerLayer.frame, cgLocation ) ) {
 		if( [scrollerLayer mouseDownAtPointInSuperlayer:cgLocation] ) {
-			_currentMouseEventType = SFTimeLineViewNotifyScrollerEventType;
+			_currentMouseEventType = AZTimeLineViewNotifyScrollerEventType;
 		}
 		return;
 	}
@@ -151,17 +154,17 @@
 - (void)mouseDragged:(NSEvent *)theEvent {
 	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	CGPoint cgLocation = NSPointToCGPoint(location);
-	if ( _currentMouseEventType == SFTimeLineViewNotifyScrollerEventType ) {
+	if ( _currentMouseEventType == AZTimeLineViewNotifyScrollerEventType ) {
 		[scrollerLayer mouseDragged:cgLocation];
 	}
 }
 - (void)mouseUp:(NSEvent *)theEvent {
 	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	CGPoint cgLocation = NSPointToCGPoint(location);
-	if ( _currentMouseEventType == SFTimeLineViewNotifyScrollerEventType ) {
+	if ( _currentMouseEventType == AZTimeLineViewNotifyScrollerEventType ) {
 		[scrollerLayer mouseUp:cgLocation];
 	}
-	_currentMouseEventType = SFTimeLineViewUndefinedEventType;
+	_currentMouseEventType = AZTimeLineViewUndefinedEventType;
 }
 - (void)scrollWheel:(NSEvent *)theEvent {
 	[scrollerLayer moveSlider:-[theEvent deltaX] ];

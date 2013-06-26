@@ -65,17 +65,17 @@
 			children = (
 				A55167010D7DDCF4006CAC05 /* CustomView.h */,
 				A55167020D7DDCF4006CAC05 /* CustomView.m */,
-				A551670E0D7DDE69006CAC05 /* SFScrollPaneLayer.h */,
-				A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */,
-				A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */,
-				A55167110D7DDE69006CAC05 /* SFSnapShotLayer.h */,
-				A55167120D7DDE69006CAC05 /* SFTimeLineLayout.h */,
-				A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */,
-				A55167140D7DDE69006CAC05 /* SFScrollerProtocols.h */,
-				A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */,
-				A55167160D7DDE69006CAC05 /* SFScrollerLayer.h */,
 				A551671D0D7DDEDE006CAC05 /* MiscUtils.h */,
 				A551671E0D7DDEDE006CAC05 /* MiscUtils.m */,
+				A55167160D7DDE69006CAC05 /* SFScrollerLayer.h */,
+				A55167150D7DDE69006CAC05 /* SFScrollerLayer.m */,
+				A55167140D7DDE69006CAC05 /* SFScrollerProtocols.h */,
+				A551670E0D7DDE69006CAC05 /* SFScrollPaneLayer.h */,
+				A55167130D7DDE69006CAC05 /* SFScrollPaneLayer.m */,
+				A55167110D7DDE69006CAC05 /* SFSnapShotLayer.h */,
+				A55167100D7DDE69006CAC05 /* SFSnapShotLayer.m */,
+				A55167120D7DDE69006CAC05 /* SFTimeLineLayout.h */,
+				A551670F0D7DDE69006CAC05 /* SFTimeLineLayout.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -253,8 +253,9 @@
 				GCC_PREFIX_HEADER = CAiTunesScroller_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CAiTunesScroller;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
 			};
@@ -270,8 +271,9 @@
 				GCC_PREFIX_HEADER = CAiTunesScroller_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CAiTunesScroller;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
